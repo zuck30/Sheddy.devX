@@ -9,10 +9,15 @@ interface PostListProps {
 export function PostList({ posts, loading }: PostListProps) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-col gap-4">
         {[1, 2, 3, 4, 5, 6].map(i => (
-          <div key={i} className="glass-card animate-pulse h-[400px]">
-            <div className="bg-white/5 h-48 w-full rounded-xl mb-4"></div>
+          <div key={i} className="glass-card animate-pulse h-[160px] flex gap-0 p-0 overflow-hidden">
+            <div className="w-12 bg-white/5 h-full"></div>
+            <div className="flex-1 p-4 space-y-3">
+              <div className="bg-white/5 h-3 w-1/4 rounded"></div>
+              <div className="bg-white/5 h-6 w-3/4 rounded"></div>
+              <div className="bg-white/5 h-4 w-full rounded"></div>
+            </div>
             <div className="bg-white/5 h-6 w-3/4 rounded mb-2"></div>
             <div className="bg-white/5 h-4 w-1/2 rounded mb-4"></div>
             <div className="bg-white/5 h-20 w-full rounded"></div>
@@ -31,7 +36,7 @@ export function PostList({ posts, loading }: PostListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex flex-col gap-4">
       {posts.map(post => (
         <PostCard key={post.id} post={post} />
       ))}

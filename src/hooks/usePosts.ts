@@ -92,26 +92,29 @@ export function usePost(slug: string) {
     }
   }
 
-  const toggleLike = async () => {
+  const upvote = async () => {
     if (!post) return
-    const likeKey = `liked_${post.id}`
-    const isLiked = localStorage.getItem(likeKey) === 'true'
-
     try {
-        const { error: updateError } = await supabase.rpc(isLiked ? 'decrement_likes' : 'increment_likes', { post_id: post.id })
-        if (!updateError) {
-            if (isLiked) {
-                localStorage.removeItem(likeKey)
-                setPost(prev => prev ? { ...prev, likes: prev.likes - 1 } : null)
-            } else {
-                localStorage.setItem(likeKey, 'true')
-                setPost(prev => prev ? { ...prev, likes: prev.likes + 1 } : null)
-            }
-        }
+      const { error: updateError } = await supabase.rpc('upvote_post', { post_id: post.id })
+      if (!updateError) {
+        setPost(prev => prev ? { ...prev, upvotes: prev.upvotes + 1 } : null)
+      }
     } catch (err) {
-        console.error('Error toggling like:', err)
+      console.error('Error upvoting:', err)
     }
   }
 
-  return { post, loading, error, incrementViews, toggleLike }
+  const downvote = async () => {
+    if (!post) return
+    try {
+      const { error: updateError } = await supabase.rpc('downvote_post', { post_id: post.id })
+      if (!updateError) {
+        setPost(prev => prev ? { ...prev, downvotes: prev.downvotes + 1 } : null)
+      }
+    } catch (err) {
+      console.error('Error downvoting:', err)
+    }
+  }
+
+  return { post, loading, error, incrementViews, upvote, downvote }
 }

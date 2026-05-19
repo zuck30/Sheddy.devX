@@ -1,24 +1,22 @@
 import { usePost } from '@/hooks/usePosts'
 import { MarkdownRenderer } from './MarkdownRenderer'
-import { Calendar, Clock, Eye, Heart, ArrowLeft, Share2 } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2 } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
-import { formatDate, estimateReadingTime, cn } from '@/lib/utils'
+import { formatDate, estimateReadingTime } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
 export function PostDetail() {
   const { slug } = useParams<{ slug: string }>()
-  const { post, loading, error, incrementViews, toggleLike } = usePost(slug || '')
-  const [isLiked, setIsLiked] = useState(false)
+  const { post, loading, error, incrementViews, upvote, downvote } = usePost(slug || '')
   const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
     if (post) {
       incrementViews()
-      setIsLiked(localStorage.getItem(`liked_${post.id}`) === 'true')
 
       // Dynamic SEO Meta Tags
-      document.title = `${post.title} | TechBlog`
+      document.title = `${post.title} | Sheddy.dev`
       const metaDescription = document.querySelector('meta[name="description"]')
       if (metaDescription) {
         metaDescription.setAttribute('content', post.excerpt || '')
@@ -41,7 +39,7 @@ export function PostDetail() {
     }
 
     return () => {
-      document.title = 'TechBlog | Personal Portfolio'
+      document.title = 'Sheddy.dev | Personal Portfolio'
     }
   }, [post?.id])
 
@@ -64,11 +62,6 @@ export function PostDetail() {
   </div>
 
   if (error || !post) return <div className="text-center py-20">Post not found</div>
-
-  const handleLike = async () => {
-    await toggleLike()
-    setIsLiked(localStorage.getItem(`liked_${post.id}`) === 'true')
-  }
 
   const share = (platform: string) => {
     const url = window.location.href
@@ -123,15 +116,16 @@ export function PostDetail() {
       </div>
 
       <footer className="border-t border-white/10 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="outline"
-            className={cn("gap-2 rounded-full", isLiked && "text-red-500 border-red-500/50 bg-red-500/10")}
-            onClick={handleLike}
-          >
-            <Heart className={cn("h-5 w-5", isLiked && "fill-current")} />
-            {post.likes} Likes
-          </Button>
+        <div className="flex items-center gap-2">
+          <div className="bg-white/5 rounded-full flex items-center p-1">
+            <Button variant="ghost" size="icon" className="h-10 w-10 hover:text-orange-500 rounded-full" onClick={upvote}>
+              <ArrowBigUp className="h-7 w-7" />
+            </Button>
+            <span className="px-2 font-bold text-lg">{(post.upvotes || 0) - (post.downvotes || 0)}</span>
+            <Button variant="ghost" size="icon" className="h-10 w-10 hover:text-blue-500 rounded-full" onClick={downvote}>
+              <ArrowBigDown className="h-7 w-7" />
+            </Button>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">

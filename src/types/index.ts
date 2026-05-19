@@ -7,7 +7,8 @@ export interface Post {
   cover_image: string | null
   tags: string[]
   views: number
-  likes: number
+  upvotes: number
+  downvotes: number
   published: boolean
   created_at: string
   updated_at: string

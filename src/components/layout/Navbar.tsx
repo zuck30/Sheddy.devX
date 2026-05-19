@@ -36,7 +36,7 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 w-full px-4 py-4">
       <div className="container glass flex h-16 items-center justify-between px-6 border-white/10">
         <Link to="/" className="text-xl font-bold tracking-tight hover:opacity-80">
-          Tech<span className="text-primary">Blog</span>
+          Sheddy.dev
         </Link>
 
         {/* Desktop Navigation */}

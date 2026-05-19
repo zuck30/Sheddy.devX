@@ -95,7 +95,7 @@ export function HomePage() {
       </motion.section>
 
       {/* Recent Posts */}
-      <section className="space-y-8">
+      <section className="space-y-8 max-w-4xl mx-auto w-full">
         <div className="flex items-end justify-between px-4">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold">Recent Posts</h2>
