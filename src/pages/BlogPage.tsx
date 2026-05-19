@@ -14,7 +14,7 @@ export function BlogPage() {
   const allTags = useMemo(() => {
     // In a real app, we might fetch all tags from a separate endpoint
     // For now, we use tags from current page + some common ones
-    const tags = new Set<string>(['React', 'TypeScript', 'Supabase', 'Design', 'Career'])
+    const tags = new Set<string>(['Architecture', 'Engineering', 'Innovation', 'Design', 'Strategy', 'Growth'])
     posts.forEach(post => post.tags.forEach(tag => tags.add(tag)))
     return Array.from(tags)
   }, [posts])
