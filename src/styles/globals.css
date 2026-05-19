@@ -77,19 +77,21 @@
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .light .glass {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
 .glass-card {
-  @apply glass p-6 transition-all duration-300 hover:shadow-xl hover:shadow-white/10;
+  @apply glass p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/30;
 }
 
 .light .glass-card {
@@ -114,12 +116,12 @@
 
 .blob {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 159, 28, 0.15) 0%, rgba(255, 159, 28, 0) 70%);
   border-radius: 50%;
-  filter: blur(80px);
-  animation: move 20s infinite alternate;
+  filter: blur(100px);
+  animation: move 25s infinite alternate;
 }
 
 @keyframes move {
