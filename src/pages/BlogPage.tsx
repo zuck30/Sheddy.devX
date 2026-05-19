@@ -22,7 +22,7 @@ export function BlogPage() {
   const totalPages = Math.ceil(totalCount / pageSize)
 
   return (
-    <div className="space-y-12 py-12">
+    <div className="space-y-12 py-12 max-w-4xl mx-auto w-full">
       <div className="space-y-4 px-4">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">The <span className="text-primary">Blog</span></h1>
         <p className="text-xl text-muted-foreground max-w-2xl">

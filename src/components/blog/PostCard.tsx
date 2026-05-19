@@ -1,61 +1,108 @@
 import { Link } from 'react-router-dom'
-import { Calendar, Clock, Eye, Heart } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, MessageSquare } from 'lucide-react'
 import { GlassCard } from '@/components/common/GlassCard'
 import { Post } from '@/types'
 import { formatDate, estimateReadingTime } from '@/lib/utils'
+import { Button } from '@/components/ui/Button'
+import { supabase } from '@/lib/supabaseClient'
+import { useState } from 'react'
 
 interface PostCardProps {
   post: Post
 }
 
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post: initialPost }: PostCardProps) {
+  const [post, setPost] = useState(initialPost)
+  const voteCount = (post.upvotes || 0) - (post.downvotes || 0)
+
+  const handleUpvote = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    try {
+      const { error } = await supabase.rpc('upvote_post', { post_id: post.id })
+      if (!error) setPost(prev => ({ ...prev, upvotes: prev.upvotes + 1 }))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleDownvote = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    try {
+      const { error } = await supabase.rpc('downvote_post', { post_id: post.id })
+      if (!error) setPost(prev => ({ ...prev, downvotes: prev.downvotes + 1 }))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
-    <Link to={`/post/${post.slug}`}>
-      <GlassCard className="h-full flex flex-col group">
-        <div className="aspect-video w-full overflow-hidden rounded-xl mb-4">
-          <img
-            src={post.cover_image || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800'}
-            alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-          />
+    <GlassCard className="p-0 overflow-hidden flex group hover:border-primary/50 transition-all duration-300">
+      {/* Vote Sidebar */}
+      <div className="w-12 bg-white/5 flex flex-col items-center py-4 gap-1">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 hover:text-orange-500 hover:bg-orange-500/10"
+          onClick={handleUpvote}
+        >
+          <ArrowBigUp className="h-6 w-6" />
+        </Button>
+        <span className="text-sm font-bold">{voteCount}</span>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 hover:text-blue-500 hover:bg-blue-500/10"
+          onClick={handleDownvote}
+        >
+          <ArrowBigDown className="h-6 w-6" />
+        </Button>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 p-4 flex flex-col">
+        <div className="flex items-center gap-2 mb-2 text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+          <div className="flex gap-1">
+            {post.tags.slice(0, 3).map(tag => (
+              <span key={tag} className="bg-primary/20 text-primary px-2 py-0.5 rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <span>•</span>
+          <span className="flex items-center gap-1">
+            <Calendar className="h-3 w-3" />
+            {formatDate(post.created_at)}
+          </span>
+          <span>•</span>
+          <span className="flex items-center gap-1">
+            <Clock className="h-3 w-3" />
+            {estimateReadingTime(post.content)}
+          </span>
         </div>
-        <div className="flex flex-wrap gap-2 mb-3">
-          {post.tags.slice(0, 3).map(tag => (
-            <span key={tag} className="text-[10px] font-bold uppercase tracking-wider bg-white/10 px-2 py-0.5 rounded">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-          {post.title}
-        </h3>
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
+
+        <Link to={`/post/${post.slug}`} className="block">
+          <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+            {post.title}
+          </h3>
+        </Link>
+
+        <p className="text-muted-foreground text-sm line-clamp-3 mb-4 flex-grow">
           {post.excerpt}
         </p>
-        <div className="mt-auto flex items-center justify-between text-xs text-muted-foreground">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <Calendar className="h-3 w-3" />
-              {formatDate(post.created_at)}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="h-3 w-3" />
-              {estimateReadingTime(post.content)}
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <Eye className="h-3 w-3" />
-              {post.views}
-            </span>
-            <span className="flex items-center gap-1">
-              <Heart className="h-3 w-3" />
-              {post.likes}
-            </span>
+
+        <div className="flex items-center gap-6 text-xs text-muted-foreground font-bold mt-auto">
+          <Link to={`/post/${post.slug}`} className="flex items-center gap-2 hover:bg-white/5 p-1 px-2 rounded transition-colors">
+            <MessageSquare className="h-4 w-4" />
+            <span>Comments</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Eye className="h-4 w-4" />
+            <span>{post.views} views</span>
           </div>
         </div>
-      </GlassCard>
-    </Link>
+      </div>
+    </GlassCard>
   )
 }

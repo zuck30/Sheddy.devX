@@ -1,6 +1,6 @@
-# TechBlog - Modern Personal Blog
+# Sheddy.dev - Modern Personal Blog
 
-A production-ready personal tech blog built with React, TypeScript, Tailwind CSS, and Supabase. Features a glassmorphism UI aesthetic, full mobile responsiveness, and an administrative dashboard.
+A production-ready personal tech blog built with React, TypeScript, Tailwind CSS, and Supabase. Features a glassmorphism UI aesthetic, full mobile responsiveness, and a Reddit-style feed.
 
 ## Tech Stack
 - **Frontend**: React (Vite), TypeScript, Tailwind CSS, shadcn/ui
@@ -35,7 +35,8 @@ CREATE TABLE posts (
   cover_image TEXT,
   tags TEXT[] DEFAULT '{}',
   views INTEGER DEFAULT 0,
-  likes INTEGER DEFAULT 0,
+  upvotes INTEGER DEFAULT 0,
+  downvotes INTEGER DEFAULT 0,
   published BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -68,17 +69,17 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION increment_likes(post_id UUID)
+CREATE OR REPLACE FUNCTION upvote_post(post_id UUID)
 RETURNS void AS $$
 BEGIN
-  UPDATE posts SET likes = likes + 1 WHERE id = post_id;
+  UPDATE posts SET upvotes = upvotes + 1 WHERE id = post_id;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION decrement_likes(post_id UUID)
+CREATE OR REPLACE FUNCTION downvote_post(post_id UUID)
 RETURNS void AS $$
 BEGIN
-  UPDATE posts SET likes = GREATEST(0, likes - 1) WHERE id = post_id;
+  UPDATE posts SET downvotes = downvotes + 1 WHERE id = post_id;
 END;
 $$ LANGUAGE plpgsql;
 
