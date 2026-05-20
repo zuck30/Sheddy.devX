@@ -16,7 +16,7 @@ export function Layout() {
   }, [theme])
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans ${theme}`}>
+    <div className="min-h-screen flex flex-col font-sans bg-background text-foreground">
       <div className="blob-container">
         <div className="blob" style={{ top: '10%', left: '10%' }}></div>
         <div className="blob" style={{ bottom: '20%', right: '10%', animationDelay: '5s' }}></div>
