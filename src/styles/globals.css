@@ -33,6 +33,11 @@
     --ring: 212.7 26.8% 83.9%;
 
     --radius: 0.5rem;
+
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --translucent-bg: rgba(255, 255, 255, 0.05);
+    --translucent-border: rgba(255, 255, 255, 0.1);
   }
 
   .light {
@@ -46,7 +51,7 @@
     --popover-foreground: 222.2 47.4% 11.2%;
 
     --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -63,6 +68,26 @@
     --border: 214.3 31.8% 85%;
     --input: 214.3 31.8% 85%;
     --ring: 222.2 47.4% 11.2%;
+
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --translucent-bg: rgba(0, 0, 0, 0.05);
+    --translucent-border: rgba(0, 0, 0, 0.1);
+  }
+}
+
+@layer utilities {
+  .bg-glass {
+    background-color: var(--glass-bg);
+  }
+  .border-glass {
+    border-color: var(--glass-border);
+  }
+  .bg-translucent {
+    background-color: var(--translucent-bg);
+  }
+  .border-translucent {
+    border-color: var(--translucent-border);
   }
 }
 
@@ -77,16 +102,14 @@
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .light .glass {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 

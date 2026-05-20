@@ -34,7 +34,7 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full px-4 py-4">
-      <div className="container glass flex h-16 items-center justify-between px-6 border-white/10">
+      <div className="container glass flex h-16 items-center justify-between px-6 border-translucent">
         <Link to="/" className="text-xl font-bold tracking-tight hover:opacity-80">
           Sheddy.dev
         </Link>
@@ -68,9 +68,9 @@ export function Navbar() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="glass border-l border-white/10">
+            <SheetContent side="right" className="glass border-l border-translucent">
               <SheetHeader>
-                <SheetTitle className="text-left border-b border-white/10 pb-4">Navigation</SheetTitle>
+                <SheetTitle className="text-left border-b border-translucent pb-4">Navigation</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-4 mt-8">
                 <NavLinks isMobile />

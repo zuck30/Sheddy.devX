@@ -245,7 +245,7 @@ export function AdminPage() {
                           id="published"
                           checked={editingPost.published}
                           onChange={(e) => setEditingPost(prev => ({ ...prev, published: e.target.checked }))}
-                          className="rounded border-white/20 bg-white/5"
+                          className="rounded border-translucent bg-translucent"
                       />
                       <label htmlFor="published" className="text-sm font-medium">Published</label>
                     </div>

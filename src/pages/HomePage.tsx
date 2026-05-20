@@ -17,7 +17,7 @@ export function HomePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center space-y-8 relative overflow-hidden py-24 px-6 sm:px-12 rounded-none sm:rounded-[3.5rem] glass border-x-0 sm:border-x border-white/10"
+        className="text-center space-y-8 relative overflow-hidden py-24 px-6 sm:px-12 rounded-none sm:rounded-[3.5rem] glass border-x-0 sm:border-x border-translucent"
       >
         <div className="absolute top-0 left-0 w-full h-full bg-primary/5 -z-10"></div>
         <div className="max-w-4xl mx-auto space-y-8">
@@ -49,7 +49,7 @@ export function HomePage() {
               </Button>
             </Link>
             <Link to="/resume">
-              <Button size="lg" variant="outline" className="rounded-full px-8 h-14 text-lg font-bold border-white/20 hover:bg-white/5 transition-all">
+              <Button size="lg" variant="outline" className="rounded-full px-8 h-14 text-lg font-bold border-translucent hover:bg-translucent transition-all">
                 About Me
               </Button>
             </Link>
@@ -82,7 +82,7 @@ export function HomePage() {
               transition={{ delay: 0.8 + i * 0.1 }}
               whileHover={{ y: -10 }}
             >
-              <GlassCard className="h-full space-y-4 border-white/5 hover:border-primary/20 transition-colors">
+              <GlassCard className="h-full space-y-4 border-translucent hover:border-primary/20 transition-colors">
                 <div className="bg-primary/10 p-3 rounded-2xl w-fit">
                   {feature.icon}
                 </div>

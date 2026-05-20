@@ -18,9 +18,13 @@ export function PostCard({ post: initialPost }: PostCardProps) {
   const handleUpvote = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    if (localStorage.getItem(`voted_${post.id}`)) return
     try {
       const { error } = await supabase.rpc('upvote_post', { post_id: post.id })
-      if (!error) setPost(prev => ({ ...prev, upvotes: prev.upvotes + 1 }))
+      if (!error) {
+        setPost(prev => ({ ...prev, upvotes: prev.upvotes + 1 }))
+        localStorage.setItem(`voted_${post.id}`, 'up')
+      }
     } catch (err) {
       console.error(err)
     }
@@ -29,9 +33,13 @@ export function PostCard({ post: initialPost }: PostCardProps) {
   const handleDownvote = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    if (localStorage.getItem(`voted_${post.id}`)) return
     try {
       const { error } = await supabase.rpc('downvote_post', { post_id: post.id })
-      if (!error) setPost(prev => ({ ...prev, downvotes: prev.downvotes + 1 }))
+      if (!error) {
+        setPost(prev => ({ ...prev, downvotes: prev.downvotes + 1 }))
+        localStorage.setItem(`voted_${post.id}`, 'down')
+      }
     } catch (err) {
       console.error(err)
     }
@@ -40,7 +48,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
   return (
     <GlassCard className="p-0 overflow-hidden flex group hover:border-primary/50 transition-all duration-300">
       {/* Vote Sidebar */}
-      <div className="w-12 bg-white/5 flex flex-col items-center py-4 gap-1">
+      <div className="w-12 bg-translucent flex flex-col items-center py-4 gap-1">
         <Button
           variant="ghost"
           size="icon"
@@ -93,7 +101,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
         </p>
 
         <div className="flex items-center gap-6 text-xs text-muted-foreground font-bold mt-auto">
-          <Link to={`/post/${post.slug}`} className="flex items-center gap-2 hover:bg-white/5 p-1 px-2 rounded transition-colors">
+          <Link to={`/post/${post.slug}`} className="flex items-center gap-2 hover:bg-translucent p-1 px-2 rounded transition-colors">
             <MessageSquare className="h-4 w-4" />
             <span>Comments</span>
           </Link>
