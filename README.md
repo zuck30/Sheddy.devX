@@ -19,7 +19,15 @@ A production-ready personal tech blog built with React, TypeScript, Tailwind CSS
 ## Setup Instructions
 
 ### 1. Supabase Setup
-Create a new project in [Supabase](https://supabase.com/) and run the following SQL in the SQL Editor:
+Create a new project in [Supabase](https://supabase.com/).
+
+**Storage Setup:**
+- Go to "Storage" in the Supabase dashboard.
+- Create a new bucket named `post-images`.
+- Make it "Public" or set up appropriate RLS policies for uploads.
+
+**Database Setup:**
+Run the following SQL in the SQL Editor:
 
 ```sql
 -- Enable UUID extension
@@ -103,7 +111,7 @@ ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Public can view published posts" ON posts FOR SELECT USING (published = true);
 CREATE POLICY "Public can view profiles" ON profiles FOR SELECT USING (true);
-CREATE POLICY "Admin can do anything on posts" ON posts FOR ALL USING (auth.email() = 'admin@example.com');
+CREATE POLICY "Admin can do anything on posts" ON posts FOR ALL USING (auth.jwt() ->> 'email' = 'admin@example.com');
 CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
 
 -- Trigger to create profile on signup
