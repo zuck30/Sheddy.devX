@@ -22,7 +22,7 @@ export function ResumePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-8">
           <section className="space-y-4">
-            <h2 className="text-2xl font-bold border-b border-white/10 pb-2">Experience</h2>
+            <h2 className="text-2xl font-bold border-b border-translucent pb-2">Experience</h2>
             <div className="space-y-6">
               {[
                 {
@@ -51,7 +51,7 @@ export function ResumePage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-bold border-b border-white/10 pb-2">Education</h2>
+            <h2 className="text-2xl font-bold border-b border-translucent pb-2">Education</h2>
             <div className="space-y-2">
               <div className="flex justify-between items-baseline">
                 <h3 className="font-bold text-lg">BS in Computer Science</h3>
@@ -67,7 +67,7 @@ export function ResumePage() {
             <h2 className="text-xl font-bold">Skills</h2>
             <div className="flex flex-wrap gap-2">
               {['React', 'TypeScript', 'Node.js', 'Next.js', 'Supabase', 'Tailwind CSS', 'PostgreSQL', 'Docker', 'AWS'].map(skill => (
-                <span key={skill} className="text-xs bg-white/10 px-2 py-1 rounded-md">{skill}</span>
+                <span key={skill} className="text-xs bg-translucent px-2 py-1 rounded-md">{skill}</span>
               ))}
             </div>
           </GlassCard>

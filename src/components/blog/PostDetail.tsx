@@ -3,13 +3,20 @@ import { MarkdownRenderer } from './MarkdownRenderer'
 import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2 } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
-import { formatDate, estimateReadingTime } from '@/lib/utils'
+import { formatDate, estimateReadingTime, cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
 export function PostDetail() {
   const { slug } = useParams<{ slug: string }>()
   const { post, loading, error, incrementViews, upvote, downvote } = usePost(slug || '')
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [hasVoted, setHasVoted] = useState(false)
+
+  useEffect(() => {
+    if (post) {
+      setHasVoted(!!localStorage.getItem(`voted_${post.id}`))
+    }
+  }, [post?.id])
 
   useEffect(() => {
     if (post) {
@@ -52,12 +59,12 @@ export function PostDetail() {
   }, [])
 
   if (loading) return <div className="animate-pulse container max-w-4xl py-12 space-y-8">
-    <div className="h-10 w-3/4 bg-white/5 rounded"></div>
-    <div className="h-96 w-full bg-white/5 rounded-2xl"></div>
+    <div className="h-10 w-3/4 bg-translucent rounded"></div>
+    <div className="h-96 w-full bg-translucent rounded-2xl"></div>
     <div className="space-y-4">
-        <div className="h-4 w-full bg-white/5 rounded"></div>
-        <div className="h-4 w-full bg-white/5 rounded"></div>
-        <div className="h-4 w-2/3 bg-white/5 rounded"></div>
+        <div className="h-4 w-full bg-translucent rounded"></div>
+        <div className="h-4 w-full bg-translucent rounded"></div>
+        <div className="h-4 w-2/3 bg-translucent rounded"></div>
     </div>
   </div>
 
@@ -107,7 +114,7 @@ export function PostDetail() {
 
       {post.cover_image && (
         <div className="rounded-3xl overflow-hidden mb-12 glass">
-          <img src={post.cover_image} alt={post.title} className="w-full object-cover max-h-[500px]" />
+          <img src={post.cover_image} alt={post.title} className="w-full object-cover max-h-[500px]" loading="lazy" />
         </div>
       )}
 
@@ -115,14 +122,36 @@ export function PostDetail() {
         <MarkdownRenderer content={post.content} />
       </div>
 
-      <footer className="border-t border-white/10 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <footer className="border-t border-translucent pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2">
-          <div className="bg-white/5 rounded-full flex items-center p-1">
-            <Button variant="ghost" size="icon" className="h-10 w-10 hover:text-orange-500 rounded-full" onClick={upvote}>
+          <div className="bg-translucent rounded-full flex items-center p-1">
+            <Button
+                variant="ghost"
+                size="icon"
+                className={cn("h-10 w-10 hover:text-orange-500 rounded-full", hasVoted && "opacity-50 cursor-not-allowed")}
+                onClick={() => {
+                    if (!hasVoted) {
+                        upvote()
+                        localStorage.setItem(`voted_${post.id}`, 'up')
+                        setHasVoted(true)
+                    }
+                }}
+            >
               <ArrowBigUp className="h-7 w-7" />
             </Button>
             <span className="px-2 font-bold text-lg">{(post.upvotes || 0) - (post.downvotes || 0)}</span>
-            <Button variant="ghost" size="icon" className="h-10 w-10 hover:text-blue-500 rounded-full" onClick={downvote}>
+            <Button
+                variant="ghost"
+                size="icon"
+                className={cn("h-10 w-10 hover:text-blue-500 rounded-full", hasVoted && "opacity-50 cursor-not-allowed")}
+                onClick={() => {
+                    if (!hasVoted) {
+                        downvote()
+                        localStorage.setItem(`voted_${post.id}`, 'down')
+                        setHasVoted(true)
+                    }
+                }}
+            >
               <ArrowBigDown className="h-7 w-7" />
             </Button>
           </div>

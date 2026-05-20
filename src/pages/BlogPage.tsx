@@ -30,7 +30,7 @@ export function BlogPage() {
         </p>
       </div>
 
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-md py-4 px-4 rounded-2xl border border-white/10 space-y-4">
+      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-md py-4 px-4 rounded-2xl border border-translucent space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <SearchBar />
           <TagFilter tags={allTags} />

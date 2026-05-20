@@ -67,21 +67,21 @@ RETURNS void AS $$
 BEGIN
   UPDATE posts SET views = views + 1 WHERE id = post_id;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION upvote_post(post_id UUID)
 RETURNS void AS $$
 BEGIN
   UPDATE posts SET upvotes = upvotes + 1 WHERE id = post_id;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION downvote_post(post_id UUID)
 RETURNS void AS $$
 BEGIN
   UPDATE posts SET downvotes = downvotes + 1 WHERE id = post_id;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Trigger for updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -103,8 +103,22 @@ ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Public can view published posts" ON posts FOR SELECT USING (published = true);
 CREATE POLICY "Public can view profiles" ON profiles FOR SELECT USING (true);
-CREATE POLICY "Admin can do anything on posts" ON posts FOR ALL USING (auth.role() = 'authenticated');
+CREATE POLICY "Admin can do anything on posts" ON posts FOR ALL USING (auth.email() = 'admin@example.com');
 CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
+
+-- Trigger to create profile on signup
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, full_name, avatar_url, email)
+  VALUES (NEW.id, NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'avatar_url', NEW.email);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
 -- Starter Content
 INSERT INTO posts (slug, title, excerpt, content, tags, published, cover_image) VALUES

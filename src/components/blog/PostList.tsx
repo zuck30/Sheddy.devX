@@ -12,15 +12,12 @@ export function PostList({ posts, loading }: PostListProps) {
       <div className="flex flex-col gap-4">
         {[1, 2, 3, 4, 5, 6].map(i => (
           <div key={i} className="glass-card animate-pulse h-[160px] flex gap-0 p-0 overflow-hidden">
-            <div className="w-12 bg-white/5 h-full"></div>
+            <div className="w-12 bg-translucent h-full"></div>
             <div className="flex-1 p-4 space-y-3">
-              <div className="bg-white/5 h-3 w-1/4 rounded"></div>
-              <div className="bg-white/5 h-6 w-3/4 rounded"></div>
-              <div className="bg-white/5 h-4 w-full rounded"></div>
+              <div className="bg-translucent h-3 w-1/4 rounded"></div>
+              <div className="bg-translucent h-6 w-3/4 rounded"></div>
+              <div className="bg-translucent h-4 w-full rounded"></div>
             </div>
-            <div className="bg-white/5 h-6 w-3/4 rounded mb-2"></div>
-            <div className="bg-white/5 h-4 w-1/2 rounded mb-4"></div>
-            <div className="bg-white/5 h-20 w-full rounded"></div>
           </div>
         ))}
       </div>
