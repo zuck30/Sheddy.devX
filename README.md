@@ -18,7 +18,7 @@
 <div align="left">
     <a href="mailto:mwalyangashadrack@gmail.com"><img src="https://img.shields.io/badge/Mail%20me-30302f?style=flat-square&logo=gmail" alt=""></a>
     <a href="https://sheddydev.netlify.app/"><img src="https://img.shields.io/badge/Live%20Demo-30302f?style=flat-square&logo=netlify" alt=""></a>
-    <a href="https://github.com/zuck30/Sheddy.dev"><img src="https://img.shields.io/badge/View%20Repo-30302f?style=flat-square&logo=github" alt=""></a>
+    <a href="https://github.com/zuck30/Sheddy.devX"><img src="https://img.shields.io/badge/View%20Repo-30302f?style=flat-square&logo=github" alt=""></a>
 </div>
 
 <br>
