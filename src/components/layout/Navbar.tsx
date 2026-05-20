@@ -50,8 +50,17 @@ export function Navbar() {
           </Button>
 
           {user ? (
-            <div className="flex items-center gap-2">
-               <span className="hidden sm:inline text-sm text-muted-foreground">{user.email}</span>
+            <div className="flex items-center gap-4">
+               <div className="flex items-center gap-2">
+                 <span className="hidden sm:inline text-sm text-muted-foreground">{user.email}</span>
+                 {isAdmin && (
+                   <Link to="/admin">
+                     <Button variant="secondary" size="sm" className="hidden sm:flex gap-2">
+                       <LayoutDashboard className="h-4 w-4" /> Dashboard
+                     </Button>
+                   </Link>
+                 )}
+               </div>
                <Button variant="ghost" size="icon" onClick={() => signOut()}>
                  <LogOut className="h-5 w-5" />
                </Button>
