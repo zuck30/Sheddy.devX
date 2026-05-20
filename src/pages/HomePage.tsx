@@ -56,42 +56,6 @@ export function HomePage() {
           </motion.div>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-24 text-left">
-          {[
-            {
-              icon: <Cpu className="h-10 w-10 text-primary" />,
-              title: "Creative Engineering",
-              desc: "Pushing boundaries with robust architectures and cutting-edge technologies."
-            },
-            {
-              icon: <Sparkles className="h-10 w-10 text-primary" />,
-              title: "Visual Storytelling",
-              desc: "Merging aesthetics with functionality to create unforgettable user journeys."
-            },
-            {
-              icon: <TrendingUp className="h-10 w-10 text-primary" />,
-              title: "Strategic Growth",
-              desc: "Sharing high-impact insights to accelerate your professional path in tech."
-            }
-          ].map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + i * 0.1 }}
-              whileHover={{ y: -10 }}
-            >
-              <GlassCard className="h-full space-y-4 border-translucent hover:border-primary/20 transition-colors">
-                <div className="bg-primary/10 p-3 rounded-2xl w-fit">
-                  {feature.icon}
-                </div>
-                <h3 className="font-black text-2xl tracking-tight">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </div>
       </motion.section>
 
       {/* Recent Posts */}
