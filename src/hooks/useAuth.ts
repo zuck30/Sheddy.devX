@@ -25,7 +25,8 @@ export function useAuth() {
     }
   }, [setSession, setUser, setLoading])
 
-  const isAdmin = user?.email === 'admin@example.com' // Replace with actual admin email if needed
+  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@example.com'
+  const isAdmin = user?.email?.toLowerCase() === adminEmail.toLowerCase()
 
   return { user, session, loading, isAdmin, signOut }
 }

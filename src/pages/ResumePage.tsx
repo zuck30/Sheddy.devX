@@ -1,6 +1,6 @@
 import { GlassCard } from '@/components/common/GlassCard'
 import { Button } from '@/components/ui/Button'
-import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Brain, Database, Cloud, Users, Eye, Workflow, BarChart } from 'lucide-react'
+import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow } from 'lucide-react'
 
 export function ResumePage() {
   return (
@@ -19,9 +19,11 @@ export function ResumePage() {
             <span className="flex items-center gap-1"><Mail className="h-4 w-4" /> mwalyangashadrack@gmail.com</span>
           </div>
         </div>
-        <Button className="gap-2 rounded-full">
-          <Download className="h-4 w-4" /> Download PDF
-        </Button>
+        <a href="/resume.pdf" download="Shadrack_John_Resume.pdf">
+          <Button className="gap-2 rounded-full">
+            <Download className="h-4 w-4" /> Download PDF
+          </Button>
+        </a>
       </div>
 
       {/* Main Grid */}

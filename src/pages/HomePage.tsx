@@ -2,8 +2,7 @@ import { usePosts } from '@/hooks/usePosts'
 import { PostList } from '@/components/blog/PostList'
 import { Button } from '@/components/ui/Button'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Cpu, Sparkles, TrendingUp } from 'lucide-react'
-import { GlassCard } from '@/components/common/GlassCard'
+import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function HomePage() {

@@ -131,7 +131,7 @@ export function AdminPage() {
 
   if (authLoading) return <div className="text-center py-20">Loading...</div>
 
-  if (!user || !isAdmin) {
+  if (!user) {
     return (
       <div className="max-w-md mx-auto py-20">
         <Card className="glass">
@@ -150,6 +150,27 @@ export function AdminPage() {
               </div>
               <Button type="submit" className="w-full">Sign In</Button>
             </form>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="max-w-md mx-auto py-20 text-center px-4">
+        <Card className="glass">
+          <CardHeader>
+            <CardTitle className="text-destructive">Access Denied</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">
+              You are logged in as <span className="font-medium text-foreground">{user.email}</span>,
+              but you do not have administrative privileges.
+            </p>
+            <Button variant="outline" onClick={() => supabase.auth.signOut()} className="w-full">
+              Sign Out
+            </Button>
           </CardContent>
         </Card>
       </div>
