@@ -12,7 +12,7 @@ export function ResumePage() {
             Shadrack <span className="text-primary">T. John</span>
           </h1>
           <p className="text-xl text-muted-foreground font-medium">
-            Computer Engineering Student & AI/Full-Stack Developer
+            Computer Engineering Student & ML/Full-Stack Developer
           </p>
           <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> Dodoma, Tanzania</span>
