@@ -1,153 +1,56 @@
-# Sheddy.dev - Modern Personal Blog
+<!-- my-icons -->
+<p align="center">
+    <a href="https://github.com/zuck30/Sheddy.dev"><img src="https://img.shields.io/badge/status-live-brightgreen.svg"></a>
+    <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-18-61DAFB.svg"></a>
+    <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-3178C6.svg"></a>
+    <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind-3.0-06B6D4.svg"></a>
+    <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E.svg"></a>
+    <a href="https://github.com/zuck30/Sheddy.dev/stargazers"><img src="https://img.shields.io/github/stars/zuck30/Sheddy.dev.svg?logo=github"></a>
+    <img src="https://visitor-badge.laobi.icu/badge?page_id=zuck30.Sheddy.dev" alt="visitors"/>   
+</p>
 
-A production-ready personal tech blog built with React, TypeScript, Tailwind CSS, and Supabase. Features a glassmorphism UI aesthetic, full mobile responsiveness, and a Reddit-style feed.
+![Banner](https://capsule-render.vercel.app/api?type=venom&height=200&color=0:1a1a2e,100:16213e&text=Sheddy.dev&textBg=false&desc=&descAlign=79&fontAlign=50&descAlignY=70&fontColor=f7f5f5)
 
-## Tech Stack
-- **Frontend**: React (Vite), TypeScript, Tailwind CSS, shadcn/ui
-- **Backend**: Supabase (PostgreSQL, Auth, Storage)
-- **State Management**: Zustand
-- **Routing**: React Router DOM v6
-- **Deployment**: Netlify
 
-## Features
-- **Public Blog**: List posts, filter by tags, search, markdown rendering with syntax highlighting.
-- **Interactive Elements**: Like button (rate-limited), view counter (session-based), reading time estimation.
-- **Admin Dashboard**: Secure /admin route to create, edit, and delete posts.
-- **Glassmorphism**: Beautiful frosted glass effects in both light and dark modes.
-- **Responsive**: Fully mobile-first design.
 
-## Setup Instructions
+<h3>Quick Links</h3>
 
-### 1. Supabase Setup
-Create a new project in [Supabase](https://supabase.com/).
+<div align="left">
+    <a href="mailto:mwalyangashadrack@gmail.com"><img src="https://img.shields.io/badge/Mail%20me-30302f?style=flat-square&logo=gmail" alt=""></a>
+    <a href="https://sheddydev.netlify.app/"><img src="https://img.shields.io/badge/Live%20Demo-30302f?style=flat-square&logo=netlify" alt=""></a>
+    <a href="https://github.com/zuck30/Sheddy.dev"><img src="https://img.shields.io/badge/View%20Repo-30302f?style=flat-square&logo=github" alt=""></a>
+</div>
 
-**Storage Setup:**
-- Go to "Storage" in the Supabase dashboard.
-- Create a new bucket named `post-images`.
-- Make it "Public" or set up appropriate RLS policies for uploads.
+<br>
 
-**Database Setup:**
-Run the following SQL in the SQL Editor:
+<a href="https://github.com/zuck30/Sheddy.dev">
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzg0ODZsZWoxbW04OWpsMHdwd3RkNGlyZ3I5MTd3dWE0a3F6MDdtdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Vwz4zdntMXrUY/giphy.gif" width="40%" align="right" style="border-radius:10px;" alt="Coding GIF">
+</a>
 
-```sql
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+<ul>
 
--- Posts table
-CREATE TABLE posts (
-  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-  slug TEXT UNIQUE NOT NULL,
-  title TEXT NOT NULL,
-  excerpt TEXT,
-  content TEXT NOT NULL,
-  cover_image TEXT,
-  tags TEXT[] DEFAULT '{}',
-  views INTEGER DEFAULT 0,
-  upvotes INTEGER DEFAULT 0,
-  downvotes INTEGER DEFAULT 0,
-  published BOOLEAN DEFAULT false,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+<h2>🛠️ Tech Stack</h2>
 
--- Create index for faster queries
-CREATE INDEX idx_posts_published ON posts(published);
-CREATE INDEX idx_posts_created_at ON posts(created_at DESC);
-CREATE INDEX idx_posts_tags ON posts USING GIN(tags);
+![Tech Stack](https://skillicons.dev/icons?i=react,ts,tailwind,supabase,vite,git,netlify&perline=7)
 
--- Profile table (for resume and social)
-CREATE TABLE profiles (
-  id UUID REFERENCES auth.users(id) PRIMARY KEY,
-  full_name TEXT,
-  avatar_url TEXT,
-  bio TEXT,
-  resume_url TEXT,
-  github_url TEXT,
-  linkedin_url TEXT,
-  twitter_url TEXT,
-  email TEXT,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
 
--- Helper functions for incrementing views/likes
-CREATE OR REPLACE FUNCTION increment_views(post_id UUID)
-RETURNS void AS $$
-BEGIN
-  UPDATE posts SET views = views + 1 WHERE id = post_id;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+<h2>🤝 Contributing</h2>
 
-CREATE OR REPLACE FUNCTION upvote_post(post_id UUID)
-RETURNS void AS $$
-BEGIN
-  UPDATE posts SET upvotes = upvotes + 1 WHERE id = post_id;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest features
+- Submit pull requests
 
-CREATE OR REPLACE FUNCTION downvote_post(post_id UUID)
-RETURNS void AS $$
-BEGIN
-  UPDATE posts SET downvotes = downvotes + 1 WHERE id = post_id;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+<h2>📄 License</h2>
 
--- Trigger for updated_at
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_at = NOW();
-  RETURN NEW;
-END;
-$$ language 'plpgsql';
+This project is MIT licensed.
 
-CREATE TRIGGER update_posts_updated_at
-  BEFORE UPDATE ON posts
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at_column();
+<h2>☕ Support the Project</h2>
 
--- RLS Policies
-ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+<p>
+    <a href="https://www.buymeacoffee.com/zuck30" target="_blank">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" height="30px">
+    </a>
+</p>
 
-CREATE POLICY "Public can view published posts" ON posts FOR SELECT USING (published = true);
-CREATE POLICY "Public can view profiles" ON profiles FOR SELECT USING (true);
-CREATE POLICY "Admin can do anything on posts" ON posts FOR ALL USING (auth.jwt() ->> 'email' = 'admin@example.com');
-CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
-
--- Trigger to create profile on signup
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO public.profiles (id, full_name, avatar_url, email)
-  VALUES (NEW.id, NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'avatar_url', NEW.email);
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
--- Starter Content
-INSERT INTO posts (slug, title, excerpt, content, tags, published, cover_image) VALUES
-('modern-architecture-patterns', 'Modern Architecture Patterns for Scale', 'A deep dive into scalable system design and architecture for modern web apps.', '# System Architecture\n\nExploring patterns like micro-frontends, edge computing, and serverless architectures.\n\n```tsx\nconst scale = "limitless";\nconsole.log(scale);\n```', ARRAY['Architecture', 'Engineering'], true, 'https://images.unsplash.com/photo-1498050108023-c5249f4df085'),
-('immersive-design-philosophy', 'The Philosophy of Immersive Design', 'Exploring why aesthetics matter and how to create deeper user connections.', '# Design Beyond Visuals\n\nImmersive design is about emotion, flow, and the subtle details that create a sense of presence.\n\n### Key Pillars:\n- Atmospheric Depth\n- Intentional Motion\n- Contextual Awareness', ARRAY['Design', 'Innovation'], true, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f'),
-('accelerating-career-growth', 'Strategies for Accelerating Career Growth', 'Actionable insights for moving from senior to staff and beyond.', '# The Growth Mindset\n\nTrue growth happens at the intersection of technical excellence and strategic influence.\n1. Broaden your impact\n2. Master high-leverage skills\n3. Build your personal brand', ARRAY['Strategy', 'Growth'], true, 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4');
-```
-
-### 2. Environment Variables
-Copy `.env.example` to `.env` and fill in your Supabase credentials:
-```
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_ADMIN_EMAIL=admin@example.com
-```
-
-### 3. Install and Run
-```bash
-npm install
-npm run dev
-```
-
-## Deployment
-This project is configured for easy deployment to Netlify. Simply connect your repository and Netlify will use the `netlify.toml` configuration.
+---
