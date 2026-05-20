@@ -24,7 +24,7 @@
 <br>
 
 <a href="https://github.com/zuck30/Sheddy.dev">
-    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzg0ODZsZWoxbW04OWpsMHdwd3RkNGlyZ3I5MTd3dWE0a3F6MDdtdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Vwz4zdntMXrUY/giphy.gif" width="40%" align="right" style="border-radius:10px;" alt="Coding GIF">
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGV5bXNkcnNtNmc4aWs4b3pwMDB1OXRqd2VxNnh6Mmp5OXloc2MxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/i4Gz4BuKa3NQU5FbhA/giphy.gif" width="40%" align="right" style="border-radius:10px;" alt="Coding GIF">
 </a>
 
 <ul>
