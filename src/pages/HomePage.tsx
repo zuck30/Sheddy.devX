@@ -97,9 +97,7 @@ export function HomePage() {
                 <Terminal className="w-4 h-4" />
                 <span>/posts</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white">
-                Recent <span className="text-emerald-400">Runs</span>
-              </h2>
+
               <p className="text-white/40 font-mono text-sm mt-1">
                 {posts.length} total posts: latest entries
               </p>
