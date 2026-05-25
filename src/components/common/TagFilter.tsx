@@ -1,5 +1,4 @@
 import { useFilterStore } from '@/store/filterStore'
-import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { Hash, X } from 'lucide-react'
 

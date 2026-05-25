@@ -1,6 +1,6 @@
 import { usePost } from '@/hooks/usePosts'
 import { MarkdownRenderer } from './MarkdownRenderer'
-import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2, Terminal, ChevronUp, Twitter, Linkedin, MessageCircle } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2, ChevronUp, Twitter, Linkedin, MessageCircle } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { formatDate, estimateReadingTime, cn } from '@/lib/utils'

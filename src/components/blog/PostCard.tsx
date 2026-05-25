@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Calendar, Clock, Eye, ArrowUp, ArrowDown, MessageSquare, ChevronRight, Terminal } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowUp, ArrowDown, MessageSquare, Terminal } from 'lucide-react'
 import { Post } from '@/types'
 import { formatDate, estimateReadingTime } from '@/lib/utils'
 import { supabase } from '@/lib/supabaseClient'
