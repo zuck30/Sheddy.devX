@@ -8,7 +8,7 @@ interface MarkdownRendererProps {
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
-    <div className="prose dark:prose-invert max-w-none prose-pre:bg-translucent prose-pre:border prose-pre:border-translucent prose-pre:rounded-xl">
+    <div className="prose prose-invert max-w-none">
       <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
         {content}
       </ReactMarkdown>

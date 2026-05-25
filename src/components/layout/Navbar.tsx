@@ -1,93 +1,150 @@
 import { Link } from 'react-router-dom'
-import { Menu, Sun, Moon, LogOut, BookOpen, User as UserIcon, LayoutDashboard, Home } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { useThemeStore } from '@/store/themeStore'
+import { Menu, LogOut, BookOpen, User as UserIcon, LayoutDashboard, Home, X } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/Sheet'
+import { useState, useEffect } from 'react'
 
 export function Navbar() {
-  const { theme, toggleTheme } = useThemeStore()
   const { user, isAdmin, signOut } = useAuth()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
-  const NavLinks = ({ isMobile = false }: { isMobile?: boolean }) => (
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileOpen])
+
+  const NavLinks = ({ isMobile = false, onClick }: { isMobile?: boolean; onClick?: () => void }) => (
     <>
-      <Link to="/" className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${isMobile ? 'text-lg py-2' : ''}`}>
+      <Link 
+        to="/" 
+        onClick={onClick}
+        className={`flex items-center gap-2 font-mono transition-colors ${
+          isMobile 
+            ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
+            : 'text-sm text-white/60 hover:text-white'
+        }`}
+      >
         <Home className="h-4 w-4" />
-        <span>Home</span>
+        <span>~/home</span>
       </Link>
-      <Link to="/blog" className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${isMobile ? 'text-lg py-2' : ''}`}>
+      <Link 
+        to="/blog" 
+        onClick={onClick}
+        className={`flex items-center gap-2 font-mono transition-colors ${
+          isMobile 
+            ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
+            : 'text-sm text-white/60 hover:text-white'
+        }`}
+      >
         <BookOpen className="h-4 w-4" />
-        <span>Blog</span>
+        <span>~/blog</span>
       </Link>
-      <Link to="/resume" className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${isMobile ? 'text-lg py-2' : ''}`}>
+      <Link 
+        to="/resume" 
+        onClick={onClick}
+        className={`flex items-center gap-2 font-mono transition-colors ${
+          isMobile 
+            ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
+            : 'text-sm text-white/60 hover:text-white'
+        }`}
+      >
         <UserIcon className="h-4 w-4" />
-        <span>Resume</span>
+        <span>~/resume</span>
       </Link>
       {isAdmin && (
-        <Link to="/admin" className={`flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors ${isMobile ? 'text-lg py-2' : ''}`}>
+        <Link 
+          to="/admin" 
+          onClick={onClick}
+          className={`flex items-center gap-2 font-mono transition-colors ${
+            isMobile 
+              ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
+              : 'text-sm text-white/60 hover:text-white'
+          }`}
+        >
           <LayoutDashboard className="h-4 w-4" />
-          <span>Admin</span>
+          <span>~/admin</span>
         </Link>
       )}
     </>
   )
 
   return (
-    <nav className="sticky top-0 z-50 w-full px-4 py-4">
-      <div className="container glass flex h-16 items-center justify-between px-6 border-translucent">
-        <Link to="/" className="text-xl font-bold tracking-tight hover:opacity-80">
-          Sheddy.dev
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <NavLinks />
-        </div>
-
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={toggleTheme}>
-            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
-
-          {user ? (
-            <div className="flex items-center gap-4">
-               <div className="flex items-center gap-2">
-                 <span className="hidden sm:inline text-sm text-muted-foreground">{user.email}</span>
-                 {isAdmin && (
-                   <Link to="/admin">
-                     <Button variant="secondary" size="sm" className="hidden sm:flex gap-2">
-                       <LayoutDashboard className="h-4 w-4" /> Dashboard
-                     </Button>
-                   </Link>
-                 )}
-               </div>
-               <Button variant="ghost" size="icon" onClick={() => signOut()}>
-                 <LogOut className="h-5 w-5" />
-               </Button>
-            </div>
-          ) : (
-            <Link to="/admin">
-              <Button variant="outline" size="sm">Login</Button>
-            </Link>
-          )}
-
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="glass border-l border-translucent">
-              <SheetHeader>
-                <SheetTitle className="text-left border-b border-translucent pb-4">Navigation</SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col gap-4 mt-8">
-                <NavLinks isMobile />
+    <>
+      <nav className="sticky top-0 z-50 w-full bg-[#0A0A0A] border-b border-white/10">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="flex h-14 items-center justify-between max-w-7xl mx-auto">
+            {/* Logo with duck.png image - rounded and styled */}
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 p-0.5 shadow-lg shadow-emerald-400/20">
+                <div className="w-full h-full rounded-full bg-[#0A0A0A] flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/duck.png" 
+                    alt="Sheddy.dev logo" 
+                    className="h-7 w-7 object-contain rounded-full"
+                  />
+                </div>
               </div>
-            </SheetContent>
-          </Sheet>
+              <span className="text-sm font-mono font-semibold text-white group-hover:text-emerald-400 transition-colors hidden sm:inline">
+                sheddy.dev
+              </span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              <NavLinks />
+            </div>
+
+            {/* Right side actions */}
+            <div className="flex items-center gap-2">
+              {/* Auth section */}
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <span className="hidden sm:inline text-xs font-mono text-white/40">
+                    {user.email?.split('@')[0]}
+                  </span>
+                  <button
+                    onClick={() => signOut()}
+                    className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    aria-label="Sign out"
+                  >
+                    <LogOut className="h-4 w-4" />
+                  </button>
+                </div>
+              ) : (
+                <Link to="/admin">
+                  <button className="px-3 py-1.5 rounded-lg text-xs font-mono text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+                    $ login
+                  </button>
+                </Link>
+              )}
+
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="md:hidden p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                aria-label="Menu"
+              >
+                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile menu drawer - fixed overlay with solid background */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 top-14 z-50 bg-[#0A0A0A]">
+          <div className="flex flex-col p-4 space-y-1">
+            <NavLinks isMobile onClick={() => setMobileOpen(false)} />
+          </div>
+        </div>
+      )}
+    </>
   )
 }

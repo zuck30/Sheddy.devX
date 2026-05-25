@@ -1,6 +1,6 @@
 import { usePost } from '@/hooks/usePosts'
 import { MarkdownRenderer } from './MarkdownRenderer'
-import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2 } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2, Terminal, ChevronUp } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { formatDate, estimateReadingTime, cn } from '@/lib/utils'
@@ -12,24 +12,26 @@ export function PostDetail() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [hasVoted, setHasVoted] = useState(false)
 
+  // Check if user already voted
   useEffect(() => {
     if (post) {
       setHasVoted(!!localStorage.getItem(`voted_${post.id}`))
     }
   }, [post?.id])
 
+  // Update view count and SEO meta tags
   useEffect(() => {
     if (post) {
       incrementViews()
 
-      // Dynamic SEO Meta Tags
+      // Update SEO meta tags
       document.title = `${post.title} | Sheddy.dev`
       const metaDescription = document.querySelector('meta[name="description"]')
       if (metaDescription) {
         metaDescription.setAttribute('content', post.excerpt || '')
       }
 
-      // OG Meta Tags
+      // Open Graph meta tags for social sharing
       const setOgTag = (property: string, content: string) => {
         let el = document.querySelector(`meta[property="${property}"]`)
         if (!el) {
@@ -45,11 +47,13 @@ export function PostDetail() {
       if (post.cover_image) setOgTag('og:image', post.cover_image)
     }
 
+    // Cleanup: reset title on unmount
     return () => {
       document.title = 'Sheddy.dev | Personal Portfolio'
     }
   }, [post?.id])
 
+  // Show/hide scroll to top button based on scroll position
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 400)
@@ -58,121 +62,201 @@ export function PostDetail() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (loading) return <div className="animate-pulse container max-w-4xl py-12 space-y-8">
-    <div className="h-10 w-3/4 bg-translucent rounded"></div>
-    <div className="h-96 w-full bg-translucent rounded-2xl"></div>
-    <div className="space-y-4">
-        <div className="h-4 w-full bg-translucent rounded"></div>
-        <div className="h-4 w-full bg-translucent rounded"></div>
-        <div className="h-4 w-2/3 bg-translucent rounded"></div>
-    </div>
-  </div>
-
-  if (error || !post) return <div className="text-center py-20">Post not found</div>
-
+  // Share post to social media
   const share = (platform: string) => {
     const url = window.location.href
-    const title = post.title
+    const title = post?.title || ''
     let shareUrl = ''
 
-    if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`
-    if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
+    if (platform === 'twitter') {
+      shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`
+    }
+    if (platform === 'linkedin') {
+      shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
+    }
 
     if (shareUrl) window.open(shareUrl, '_blank')
   }
 
-  return (
-    <article className="container max-w-4xl py-12 relative">
-      <Link to="/blog">
-        <Button variant="ghost" size="sm" className="mb-8 gap-2">
-          <ArrowLeft className="h-4 w-4" /> Back to blog
-        </Button>
-      </Link>
-
-      <header className="mb-12">
-        <div className="flex flex-wrap gap-2 mb-6">
-          {post.tags.map(tag => (
-            <span key={tag} className="text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary px-3 py-1 rounded-full">
-              {tag}
-            </span>
-          ))}
+  // Loading skeleton
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0A0A0A]">
+        <div className="px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mx-auto max-w-4xl">
+            <div className="animate-pulse space-y-8">
+              <div className="h-8 w-24 bg-white/10 rounded" />
+              <div className="space-y-4">
+                <div className="h-12 w-3/4 bg-white/10 rounded" />
+                <div className="h-4 w-full bg-white/10 rounded" />
+                <div className="h-4 w-full bg-white/10 rounded" />
+                <div className="h-4 w-2/3 bg-white/10 rounded" />
+              </div>
+            </div>
+          </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">{post.title}</h1>
-
-        <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-          <span className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" /> {formatDate(post.created_at)}
-          </span>
-          <span className="flex items-center gap-2">
-            <Clock className="h-4 w-4" /> {estimateReadingTime(post.content)}
-          </span>
-          <span className="flex items-center gap-2">
-            <Eye className="h-4 w-4" /> {post.views} views
-          </span>
-        </div>
-      </header>
-
-      {post.cover_image && (
-        <div className="rounded-3xl overflow-hidden mb-12 glass">
-          <img src={post.cover_image} alt={post.title} className="w-full object-cover max-h-[500px]" loading="lazy" />
-        </div>
-      )}
-
-      <div className="mb-16">
-        <MarkdownRenderer content={post.content} />
       </div>
+    )
+  }
 
-      <footer className="border-t border-translucent pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2">
-          <div className="bg-translucent rounded-full flex items-center p-1">
-            <Button
-                variant="ghost"
-                size="icon"
-                className={cn("h-10 w-10 hover:text-orange-500 rounded-full", hasVoted && "opacity-50 cursor-not-allowed")}
-                onClick={() => {
-                    if (!hasVoted) {
+  // Error or no post state
+  if (error || !post) {
+    return (
+      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white/60 font-mono">Post not found</p>
+          <Link to="/blog" className="text-emerald-400 font-mono text-sm mt-4 inline-block hover:underline">
+            ← back to blog
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  const voteCount = (post.upvotes || 0) - (post.downvotes || 0)
+
+  return (
+    <article className="min-h-screen bg-[#0A0A0A]">
+      <div className="px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto max-w-3xl">
+          {/* Back button - terminal style */}
+          <Link to="/blog">
+            <Button variant="ghost" size="sm" className="mb-8 gap-2 font-mono text-white/60 hover:text-white hover:bg-white/10">
+              <ArrowLeft className="h-4 w-4" /> 
+              <span>$ cd ../blog</span>
+            </Button>
+          </Link>
+
+          {/* Post header */}
+          <header className="mb-10">
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-5">
+              {post.tags.map(tag => (
+                <span key={tag} className="text-[11px] font-mono bg-white/10 text-emerald-400 px-2.5 py-1 rounded border border-white/10">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight tracking-tight">
+              {post.title}
+            </h1>
+
+            {/* Meta info */}
+            <div className="flex flex-wrap items-center gap-5 text-sm font-mono text-white/40 border-t border-white/10 pt-5">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="h-3.5 w-3.5" /> {formatDate(post.created_at)}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5" /> {estimateReadingTime(post.content)} read
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Eye className="h-3.5 w-3.5" /> {post.views} views
+              </span>
+            </div>
+          </header>
+
+          {/* Cover image */}
+          {post.cover_image && (
+            <div className="rounded-lg overflow-hidden mb-10 border border-white/10">
+              <img 
+                src={post.cover_image} 
+                alt={post.title} 
+                className="w-full object-cover max-h-[400px]" 
+                loading="lazy" 
+              />
+            </div>
+          )}
+
+          {/* Markdown content */}
+          <div className="prose prose-invert prose-sm sm:prose-base lg:prose-lg max-w-none mb-12">
+            <MarkdownRenderer content={post.content} />
+          </div>
+
+          {/* Footer with voting and sharing */}
+          <footer className="border-t border-white/10 pt-8 mt-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
+              {/* Vote buttons */}
+              <div className="flex items-center gap-2">
+                <div className="bg-white/5 border border-white/10 rounded-full flex items-center p-0.5">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                      "h-8 w-8 rounded-full hover:text-emerald-400 transition-colors",
+                      hasVoted && "opacity-40 cursor-not-allowed"
+                    )}
+                    onClick={() => {
+                      if (!hasVoted) {
                         upvote()
                         localStorage.setItem(`voted_${post.id}`, 'up')
                         setHasVoted(true)
-                    }
-                }}
-            >
-              <ArrowBigUp className="h-7 w-7" />
-            </Button>
-            <span className="px-2 font-bold text-lg">{(post.upvotes || 0) - (post.downvotes || 0)}</span>
-            <Button
-                variant="ghost"
-                size="icon"
-                className={cn("h-10 w-10 hover:text-blue-500 rounded-full", hasVoted && "opacity-50 cursor-not-allowed")}
-                onClick={() => {
-                    if (!hasVoted) {
+                      }
+                    }}
+                    disabled={hasVoted}
+                  >
+                    <ArrowBigUp className="h-5 w-5" />
+                  </Button>
+                  <span className="px-2 text-sm font-mono text-white/80 min-w-[32px] text-center">
+                    {voteCount}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                      "h-8 w-8 rounded-full hover:text-red-400 transition-colors",
+                      hasVoted && "opacity-40 cursor-not-allowed"
+                    )}
+                    onClick={() => {
+                      if (!hasVoted) {
                         downvote()
                         localStorage.setItem(`voted_${post.id}`, 'down')
                         setHasVoted(true)
-                    }
-                }}
-            >
-              <ArrowBigDown className="h-7 w-7" />
-            </Button>
-          </div>
-        </div>
+                      }
+                    }}
+                    disabled={hasVoted}
+                  >
+                    <ArrowBigDown className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
 
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-muted-foreground flex items-center gap-2">
-            <Share2 className="h-4 w-4" /> Share:
-          </span>
-          <Button variant="ghost" size="sm" onClick={() => share('twitter')}>Twitter</Button>
-          <Button variant="ghost" size="sm" onClick={() => share('linkedin')}>LinkedIn</Button>
+              {/* Share buttons */}
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono text-white/40 flex items-center gap-1.5">
+                  <Share2 className="h-3.5 w-3.5" /> share:
+                </span>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => share('twitter')}
+                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10"
+                >
+                  twitter
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => share('linkedin')}
+                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10"
+                >
+                  linkedin
+                </Button>
+              </div>
+            </div>
+          </footer>
         </div>
-      </footer>
+      </div>
 
+      {/* Scroll to top button */}
       {showScrollTop && (
         <Button
-          className="fixed bottom-8 right-8 rounded-full h-12 w-12 shadow-2xl z-50"
+          className="fixed bottom-6 right-6 rounded-full h-10 w-10 bg-white/10 border border-white/20 hover:bg-white/20 transition-all backdrop-blur-sm z-50"
           size="icon"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <ArrowLeft className="h-5 w-5 rotate-90" />
+          <ChevronUp className="h-4 w-4 text-white" />
         </Button>
       )}
     </article>

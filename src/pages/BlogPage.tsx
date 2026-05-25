@@ -2,66 +2,171 @@ import { usePosts } from '@/hooks/usePosts'
 import { PostList } from '@/components/blog/PostList'
 import { SearchBar } from '@/components/common/SearchBar'
 import { TagFilter } from '@/components/common/TagFilter'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Terminal, Filter, X } from 'lucide-react'
+import { supabase } from '@/lib/supabaseClient'
 
 export function BlogPage() {
   const [page, setPage] = useState(1)
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [allTags, setAllTags] = useState<string[]>([])
+  const [tagsLoading, setTagsLoading] = useState(true)
   const pageSize = 6
   const { posts, totalCount, loading } = usePosts(page, pageSize)
 
-  const allTags = useMemo(() => {
-    // In a real app, we might fetch all tags from a separate endpoint
-    // For now, we use tags from current page + some common ones
-    const tags = new Set<string>(['Architecture', 'Engineering', 'Innovation', 'Design', 'Strategy', 'Growth'])
-    posts.forEach(post => post.tags.forEach(tag => tags.add(tag)))
-    return Array.from(tags)
-  }, [posts])
+
+  useEffect(() => {
+    const fetchAllTags = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('posts')
+          .select('tags')
+          .eq('published', true)
+        
+        if (!error && data) {
+          const tagSet = new Set<string>()
+          data.forEach(post => {
+            if (post.tags && Array.isArray(post.tags)) {
+              post.tags.forEach((tag: string) => tagSet.add(tag))
+            }
+          })
+          setAllTags(Array.from(tagSet).sort())
+        }
+      } catch (err) {
+        console.error('Error fetching tags:', err)
+      } finally {
+        setTagsLoading(false)
+      }
+    }
+    
+    fetchAllTags()
+  }, [])
 
   const totalPages = Math.ceil(totalCount / pageSize)
 
   return (
-    <div className="space-y-12 py-12 max-w-4xl mx-auto w-full">
-      <div className="space-y-4 px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">The <span className="text-primary">Blog</span></h1>
-        <p className="text-xl text-muted-foreground max-w-2xl">
-          Sharing my thoughts, experiences, and technical tutorials.
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#0A0A0A]">
+      <div className="px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto max-w-4xl">
+          {/* Header*/}
+          <div className="mb-8">
+            <div className="flex items-center gap-2 text-emerald-400 font-mono text-sm mb-3">
+              <Terminal className="w-4 h-4" />
+              <span>$ cd /blog</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">
+              The <span className="text-emerald-400">Blog</span>
+            </h1>
+            <p className="text-white/50 font-mono text-base">
+              {totalCount} posts — sharing thoughts and technical deep-dives
+            </p>
+          </div>
 
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-md py-4 px-4 rounded-2xl border border-translucent space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <SearchBar />
-          <TagFilter tags={allTags} />
+          {/* Filters  */}
+          <div className="mb-8">
+            {/* Mobile filter button */}
+            <div className="sm:hidden">
+              <Button
+                variant="outline"
+                onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+                className="w-full justify-between border-white/20 bg-white/5 text-white hover:bg-white/10"
+              >
+                <span className="flex items-center gap-2">
+                  <Filter className="w-4 h-4" />
+                  Filters & Search
+                </span>
+                {mobileFiltersOpen ? <X className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+              </Button>
+              
+              {mobileFiltersOpen && (
+                <div className="mt-3 p-4 rounded-lg border border-white/20 bg-white/5 space-y-4">
+                  <SearchBar />
+                  <TagFilter tags={allTags} loading={tagsLoading} />
+                </div>
+              )}
+            </div>
+
+            {/* Desktop filters - Sticky terminal bar style */}
+            <div className="hidden sm:block sticky top-20 z-40 bg-[#0A0A0A]/95 backdrop-blur-sm py-4 rounded-lg border border-white/10">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <SearchBar />
+                <TagFilter tags={allTags} loading={tagsLoading} />
+              </div>
+            </div>
+          </div>
+
+          {/* Posts list */}
+          <PostList posts={posts} loading={loading} />
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-12 pt-8 border-t border-white/10">
+              <div className="text-sm font-mono text-white/40">
+                {totalCount} total posts
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 disabled:opacity-30"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                
+                <div className="flex items-center gap-1">
+                  {(() => {
+                    const pages = []
+                    const maxVisible = 5
+                    let startPage = Math.max(1, page - Math.floor(maxVisible / 2))
+                    const endPage = Math.min(totalPages, startPage + maxVisible - 1)
+                    
+                    if (endPage - startPage + 1 < maxVisible) {
+                      startPage = Math.max(1, endPage - maxVisible + 1)
+                    }
+                    
+                    for (let i = startPage; i <= endPage; i++) {
+                      pages.push(
+                        <Button
+                          key={i}
+                          variant={page === i ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setPage(i)}
+                          className={`w-9 h-9 p-0 ${
+                            page === i 
+                              ? 'bg-emerald-400 text-black hover:bg-emerald-500' 
+                              : 'border-white/20 bg-white/5 text-white hover:bg-white/10'
+                          }`}
+                        >
+                          {i}
+                        </Button>
+                      )
+                    }
+                    return pages
+                  })()}
+                </div>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 disabled:opacity-30"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              <div className="text-sm font-mono text-white/40">
+                Page {page} of {totalPages}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      <PostList posts={posts} loading={loading} />
-
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-8">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setPage(p => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="text-sm font-medium">
-            Page {page} of {totalPages}
-          </span>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
     </div>
   )
 }
