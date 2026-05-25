@@ -1,6 +1,6 @@
 import { usePost } from '@/hooks/usePosts'
 import { MarkdownRenderer } from './MarkdownRenderer'
-import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2, Terminal, ChevronUp } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowBigUp, ArrowBigDown, ArrowLeft, Share2, Terminal, ChevronUp, Twitter, Linkedin, MessageCircle } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { formatDate, estimateReadingTime, cn } from '@/lib/utils'
@@ -74,6 +74,9 @@ export function PostDetail() {
     if (platform === 'linkedin') {
       shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
     }
+    if (platform === 'whatsapp') {
+      shareUrl = `https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`
+    }
 
     if (shareUrl) window.open(shareUrl, '_blank')
   }
@@ -119,7 +122,7 @@ export function PostDetail() {
     <article className="min-h-screen bg-[#0A0A0A]">
       <div className="px-4 sm:px-6 lg:px-8 py-12">
         <div className="mx-auto max-w-3xl">
-          {/* Back button - terminal style */}
+          {/* Back button  */}
           <Link to="/blog">
             <Button variant="ghost" size="sm" className="mb-8 gap-2 font-mono text-white/60 hover:text-white hover:bg-white/10">
               <ArrowLeft className="h-4 w-4" /> 
@@ -223,7 +226,7 @@ export function PostDetail() {
               </div>
 
               {/* Share buttons */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <span className="text-xs font-mono text-white/40 flex items-center gap-1.5">
                   <Share2 className="h-3.5 w-3.5" /> share:
                 </span>
@@ -231,17 +234,28 @@ export function PostDetail() {
                   variant="ghost" 
                   size="sm" 
                   onClick={() => share('twitter')}
-                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10"
+                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10 gap-1.5"
                 >
+                  <Twitter className="h-3.5 w-3.5" />
                   twitter
                 </Button>
                 <Button 
                   variant="ghost" 
                   size="sm" 
                   onClick={() => share('linkedin')}
-                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10"
+                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10 gap-1.5"
                 >
+                  <Linkedin className="h-3.5 w-3.5" />
                   linkedin
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => share('whatsapp')}
+                  className="font-mono text-xs text-white/60 hover:text-white hover:bg-white/10 gap-1.5"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  whatsapp
                 </Button>
               </div>
             </div>

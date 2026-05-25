@@ -55,7 +55,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
     <Link to={`/post/${post.slug}`} className="block group">
       <div className="bg-white/5 border border-white/10 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-200">
         <div className="p-4">
-          {/* Header with metadata - Terminal style */}
+          {/* Header with metadata */}
           <div className="flex flex-wrap items-center gap-3 mb-3">
             <div className="flex items-center gap-1.5 text-xs font-mono">
               <Terminal className="w-3 h-3 text-emerald-400" />
@@ -87,7 +87,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
             {post.excerpt}
           </p>
 
-          {/* Footer - Like Warp's run metadata */}
+          {/* Footer */}
           <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10">
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-white/40">
               <span className="flex items-center gap-1.5">
@@ -108,7 +108,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
               </span>
             </div>
 
-            {/* Vote buttons - Terminal style */}
+            {/* Vote buttons */}
             <div className="flex items-center gap-1">
               <button
                 onClick={(e) => {
@@ -140,7 +140,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
             </div>
           </div>
 
-          {/* Status indicator line - Like Warp's "Just now" */}
+          {/* Status indicator*/}
           <div className="mt-3 flex items-center gap-2">
             <span className="text-[10px] font-mono text-white/30">
             {estimateReadingTime(post.content)} read

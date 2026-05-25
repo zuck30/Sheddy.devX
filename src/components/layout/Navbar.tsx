@@ -79,7 +79,8 @@ export function Navbar() {
       <nav className="sticky top-0 z-50 w-full bg-[#0A0A0A] border-b border-white/10">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 items-center justify-between max-w-7xl mx-auto">
-            {/* Logo with duck.png image - rounded and styled */}
+
+
             <Link to="/" className="flex items-center gap-2 group">
               <div className="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 p-0.5 shadow-lg shadow-emerald-400/20">
                 <div className="w-full h-full rounded-full bg-[#0A0A0A] flex items-center justify-center overflow-hidden">
@@ -137,7 +138,7 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu drawer - fixed overlay with solid background */}
+      {/* Mobile menu drawer*/}
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 top-14 z-50 bg-[#0A0A0A]">
           <div className="flex flex-col p-4 space-y-1">

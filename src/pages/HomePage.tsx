@@ -21,7 +21,7 @@ export function HomePage() {
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-black/70" />
         
-        {/* Terminal-style header bar */}
+
         <div className="absolute top-0 left-0 right-0 h-12 bg-black/60 backdrop-blur-sm border-b border-white/10 flex items-center px-4 gap-2 z-10">
           <div className="flex-1 text-center">
             <span className="text-xs text-white/40 font-mono">zsh  ~/blog</span>

@@ -59,7 +59,7 @@ export function BlogPage() {
               The <span className="text-emerald-400">Blog</span>
             </h1>
             <p className="text-white/50 font-mono text-base">
-              {totalCount} posts — sharing thoughts and technical deep-dives
+              {totalCount} posts. Sharing thoughts and technical deep-dives
             </p>
           </div>
 
