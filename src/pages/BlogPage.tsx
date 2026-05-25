@@ -4,7 +4,7 @@ import { SearchBar } from '@/components/common/SearchBar'
 import { TagFilter } from '@/components/common/TagFilter'
 import {  useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
-import { ChevronLeft, ChevronRight, Terminal, Filter, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Filter, X } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
 
 export function BlogPage() {
