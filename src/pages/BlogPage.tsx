@@ -2,7 +2,7 @@ import { usePosts } from '@/hooks/usePosts'
 import { PostList } from '@/components/blog/PostList'
 import { SearchBar } from '@/components/common/SearchBar'
 import { TagFilter } from '@/components/common/TagFilter'
-import { useMemo, useState, useEffect } from 'react'
+import {  useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ChevronLeft, ChevronRight, Terminal, Filter, X } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
@@ -51,13 +51,6 @@ export function BlogPage() {
         <div className="mx-auto max-w-4xl">
           {/* Header*/}
           <div className="mb-8">
-            <div className="flex items-center gap-2 text-emerald-400 font-mono text-sm mb-3">
-              <Terminal className="w-4 h-4" />
-              <span>$ cd /blog</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">
-              The <span className="text-emerald-400">Blog</span>
-            </h1>
             <p className="text-white/50 font-mono text-base">
               {totalCount} posts. Sharing thoughts and technical deep-dives
             </p>
