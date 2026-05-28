@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button'
-import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow, Terminal, Github, Linkedin, Globe } from 'lucide-react'
+import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow, Terminal, Github, Globe } from 'lucide-react'
 
 export function ResumePage() {
   return (
