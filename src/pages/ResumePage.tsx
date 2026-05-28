@@ -47,11 +47,13 @@ export function ResumePage() {
                   <span className="font-mono text-emerald-400">$ about</span>
                 </h2>
                 <p className="text-white/60 font-mono text-sm leading-relaxed">
-                  Innovative Computer Engineering student and Freelance Full-Stack Developer with over two years of 
-                  experience building scalable, AI-driven applications. Proven expertise in developing end-to-end 
-                  solutions including intelligent recommendation systems, unified job alert platforms, and immersive 
-                  AI companions. Skilled in Python (FastAPI), React, Tailwind CSS, and SQL databases, with specialized 
-                  focus on integrating Machine Learning models for vision and predictive analytics.
+I’m an Innovative Computer Engineering student and Freelance System Developer with 3+ years of experience in
+building scalable System applications. I have Expertise in building intelligent recommendation systems, Artificial
+Intelligence Integrated systems and Web Apps, Skilled in Python, React, TypeScript,Tailwind Css and also
+Skilled in Data Engineering with Python and Jupyter. I’m also an Open source contributor on Github. I’m
+Currently Finalizing my Bsc. Degree of Science in Computer Engineering at University of Dodoma, College Of
+Informatics and Virtual Education (CIVE).
+
                 </p>
               </section>
 
@@ -110,7 +112,7 @@ export function ResumePage() {
                         <Calendar className="h-3 w-3" /> 2022 - Present
                       </span>
                     </div>
-                    <p className="text-emerald-400 font-mono text-sm mb-1">University of Dar es Salaam</p>
+                    <p className="text-emerald-400 font-mono text-sm mb-1">University of Dodoma (CIVE)</p>
                     <p className="text-white/50 font-mono text-xs">Specializing in Software Development, Machine Learning, System Engineering.</p>
                   </div>
                   <div>
@@ -154,7 +156,7 @@ export function ResumePage() {
                   <div>
                     <p className="text-white/60 font-mono text-xs mb-2">Data & Cloud</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {['SQL', 'PostgreSQL', 'Azure', 'ETL Pipelines', 'Apache Spark', 'Kafka', 'dbt', 'Power BI'].map(skill => (
+                      {['SQL', 'PostgreSQL', 'Azure', 'ETL Pipelines', 'Apache Spark', 'Supabase', 'Streamlit', 'Power BI'].map(skill => (
                         <span key={skill} className="text-[11px] font-mono bg-white/10 text-white/60 px-2 py-1 rounded border border-white/10">{skill}</span>
                       ))}
                     </div>
@@ -223,9 +225,6 @@ export function ResumePage() {
                   </a>
                   <a href="https://github.com/zuck30" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-white/60 hover:text-emerald-400 transition-colors">
                     <Github className="h-3.5 w-3.5" /> github
-                  </a>
-                  <a href="https://linkedin.com/in/shadrack-john" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-white/60 hover:text-emerald-400 transition-colors">
-                    <Linkedin className="h-3.5 w-3.5" /> linkedin
                   </a>
                 </div>
                 <div className="mt-4 pt-3 border-t border-white/10">
