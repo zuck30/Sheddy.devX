@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Calendar, Clock, Eye, ArrowUp, ArrowDown, MessageSquare, Terminal } from 'lucide-react'
+import { Calendar, Clock, Eye, ArrowUp, ArrowDown, MessageSquare } from 'lucide-react'
 import { Post } from '@/types'
 import { formatDate, estimateReadingTime } from '@/lib/utils'
 import { supabase } from '@/lib/supabaseClient'
@@ -58,10 +58,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
           {/* Header with metadata */}
           <div className="flex flex-wrap items-center gap-3 mb-3">
             <div className="flex items-center gap-1.5 text-xs font-mono">
-              <Terminal className="w-3 h-3 text-emerald-400" />
-              <span className="text-emerald-400">$</span>
               <span className="text-white/40">post</span>
-              <span className="text-white/40">→</span>
             </div>
             
             {/* Tags */}

@@ -126,7 +126,6 @@ export function PostDetail() {
           <Link to="/blog">
             <Button variant="ghost" size="sm" className="mb-8 gap-2 font-mono text-white/60 hover:text-white hover:bg-white/10">
               <ArrowLeft className="h-4 w-4" /> 
-              <span>$ cd ../blog</span>
             </Button>
           </Link>
 
