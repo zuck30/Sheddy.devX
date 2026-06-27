@@ -80,7 +80,6 @@ export function BlogPage() {
               )}
             </div>
 
-            {/* Desktop filters - Sticky terminal bar style */}
             <div className="hidden sm:block sticky top-20 z-40 bg-[#0A0A0A]/95 backdrop-blur-sm py-4 rounded-lg border border-white/10">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <SearchBar />

@@ -1,16 +1,14 @@
 import { Button } from '@/components/ui/Button'
-import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow, Terminal, Github, Globe } from 'lucide-react'
+import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow, Github, Globe } from 'lucide-react'
 
 export function ResumePage() {
   return (
     <div className="min-h-screen bg-[#0A0A0A]">
       <div className="px-4 sm:px-6 lg:px-8 py-12">
         <div className="mx-auto max-w-5xl">
-          {/* Terminal header */}
           <div className="mb-8">
             <div className="flex items-center gap-2 text-emerald-400 font-mono text-sm mb-3">
-              <Terminal className="w-4 h-4" />
-              <span>$ cat resume.md</span>
+
             </div>
           </div>
 

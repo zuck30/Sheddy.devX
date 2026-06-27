@@ -2,7 +2,7 @@ import { usePosts } from '@/hooks/usePosts'
 import { PostList } from '@/components/blog/PostList'
 import { Button } from '@/components/ui/Button'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Terminal, Crown, GitBranch } from 'lucide-react'
+import { ArrowRight, Crown, GitBranch } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function HomePage() {
@@ -23,9 +23,7 @@ export function HomePage() {
         
 
         <div className="absolute top-0 left-0 right-0 h-12 bg-black/60 backdrop-blur-sm border-b border-white/10 flex items-center px-4 gap-2 z-10">
-          <div className="flex-1 text-center">
-            <span className="text-xs text-white/40 font-mono">zsh  ~/blog</span>
-          </div>
+         
           <div className="w-16" />
         </div>
 
@@ -70,18 +68,12 @@ export function HomePage() {
               </Link>
             </motion.div>
 
-            {/* Terminal command hint */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
               className="mt-8 pt-6 border-t border-white/20"
             >
-              <div className="flex items-center gap-2 text-sm font-mono text-white/40">
-                <GitBranch className="w-4 h-4" />
-                <span>$ brew install blog-posts</span>
-                <span className="animate-pulse">█</span>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -93,13 +85,8 @@ export function HomePage() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
-              <div className="flex items-center gap-2 text-emerald-400 font-mono text-sm mb-2">
-                <Terminal className="w-4 h-4" />
-                <span>/posts</span>
-              </div>
-
               <p className="text-white/40 font-mono text-sm mt-1">
-                {posts.length} total posts: latest entries
+                {posts.length} total posts: latest
               </p>
             </div>
             <Link 
