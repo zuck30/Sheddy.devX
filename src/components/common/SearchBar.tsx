@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Search, Terminal, X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { useFilterStore } from '@/store/filterStore'
 
@@ -24,12 +24,8 @@ export function SearchBar() {
 
   return (
     <div className="relative w-full">
-      {/* Terminal-style search container */}
       <div className="relative">
-        {/* Search icon - terminal prompt style */}
         <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
-          <Terminal className="h-3.5 w-3.5 text-emerald-400" />
-          <span className="text-xs font-mono text-emerald-400/60 hidden sm:inline">$</span>
           <Search className="h-3.5 w-3.5 text-white/40" />
         </div>
         

@@ -24,7 +24,6 @@ export function TagFilter({ tags, loading }: TagFilterProps) {
 
   return (
     <div className="flex flex-wrap gap-2 items-center">
-      {/* Terminal-style label */}
       <div className="flex items-center gap-1.5 mr-1">
         <Hash className="h-3 w-3 text-emerald-400" />
         <span className="text-xs font-mono text-white/40">tags</span>
