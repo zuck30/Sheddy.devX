@@ -34,7 +34,6 @@ export function Layout() {
         />
       </div>
 
-      {/* Noise texture overlay for terminal feel */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-5"
         style={{
