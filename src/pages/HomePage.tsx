@@ -2,7 +2,7 @@ import { usePosts } from '@/hooks/usePosts'
 import { PostList } from '@/components/blog/PostList'
 import { Button } from '@/components/ui/Button'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Crown, GitBranch } from 'lucide-react'
+import { ArrowRight, Crown} from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function HomePage() {
