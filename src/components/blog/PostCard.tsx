@@ -53,12 +53,12 @@ export function PostCard({ post: initialPost }: PostCardProps) {
 
   return (
     <Link to={`/post/${post.slug}`} className="block group">
-      <div className="bg-white/5 border border-white/10 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-200">
-        <div className="p-4">
+      <div className="border border-neutral-200 bg-white hover:border-black transition-colors duration-200">
+        <div className="p-6 md:p-8">
           {/* Header with metadata */}
-          <div className="flex flex-wrap items-center gap-3 mb-3">
-            <div className="flex items-center gap-1.5 text-xs font-mono">
-              <span className="text-white/40">post</span>
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-mono font-bold uppercase text-neutral-700">post</span>
             </div>
             
             {/* Tags */}
@@ -66,7 +66,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
               {post.tags?.slice(0, 3).map(tag => (
                 <span 
                   key={tag} 
-                  className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/60 border border-white/10"
+                  className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 bg-black text-white border border-black"
                 >
                   {tag}
                 </span>
@@ -75,18 +75,18 @@ export function PostCard({ post: initialPost }: PostCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+          <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-black mb-3 group-hover:text-[#FA520F] transition-colors">
             {post.title}
           </h3>
 
           {/* Excerpt */}
-          <p className="text-sm text-white/40 line-clamp-2 mb-3 font-mono">
+          <p className="text-base text-neutral-500 leading-relaxed line-clamp-2 mb-4">
             {post.excerpt}
           </p>
 
           {/* Footer */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10">
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-white/40">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-neutral-200">
+            <div className="flex flex-wrap items-center gap-4 text-[10px] font-mono font-bold uppercase text-neutral-700">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3 h-3" />
                 {formatDate(post.created_at)}
@@ -97,7 +97,7 @@ export function PostCard({ post: initialPost }: PostCardProps) {
               </span>
               <span className="flex items-center gap-1.5">
                 <Eye className="w-3 h-3" />
-                {post.views || 0} views
+                {post.views || 0}
               </span>
               <span className="flex items-center gap-1.5">
                 <MessageSquare className="w-3 h-3" />
@@ -112,14 +112,16 @@ export function PostCard({ post: initialPost }: PostCardProps) {
                   e.preventDefault()
                   handleUpvote(e)
                 }}
-                className={`p-1 rounded hover:bg-white/10 transition-colors ${
-                  hasVoted === 'up' ? 'text-emerald-400' : 'text-white/30 hover:text-emerald-400'
+                className={`p-1.5 border border-neutral-200 transition-all ${
+                  hasVoted === 'up' 
+                    ? 'border-[#FA520F] bg-[#FA520F] text-white' 
+                    : 'border-neutral-200 text-neutral-700 hover:border-black hover:text-black'
                 }`}
                 disabled={!!hasVoted}
               >
                 <ArrowUp className="w-3.5 h-3.5" />
               </button>
-              <span className="text-xs font-mono text-white/60 min-w-[20px] text-center">
+              <span className="text-xs font-mono font-bold text-black min-w-[20px] text-center">
                 {voteCount}
               </span>
               <button
@@ -127,8 +129,10 @@ export function PostCard({ post: initialPost }: PostCardProps) {
                   e.preventDefault()
                   handleDownvote(e)
                 }}
-                className={`p-1 rounded hover:bg-white/10 transition-colors ${
-                  hasVoted === 'down' ? 'text-red-400' : 'text-white/30 hover:text-red-400'
+                className={`p-1.5 border border-neutral-200 transition-all ${
+                  hasVoted === 'down' 
+                    ? 'border-black bg-black text-white' 
+                    : 'border-neutral-200 text-neutral-700 hover:border-black hover:text-black'
                 }`}
                 disabled={!!hasVoted}
               >
@@ -137,10 +141,10 @@ export function PostCard({ post: initialPost }: PostCardProps) {
             </div>
           </div>
 
-          {/* Status indicator*/}
+          {/* Status indicator */}
           <div className="mt-3 flex items-center gap-2">
-            <span className="text-[10px] font-mono text-white/30">
-            {estimateReadingTime(post.content)} read
+            <span className="text-[9px] font-mono font-bold uppercase text-neutral-700">
+              {estimateReadingTime(post.content)} min read
             </span>
           </div>
         </div>
