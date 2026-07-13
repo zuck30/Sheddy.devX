@@ -1,107 +1,142 @@
 import { usePosts } from '@/hooks/usePosts'
-import { PostList } from '@/components/blog/PostList'
-import { Button } from '@/components/ui/Button'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Crown} from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import heroImage from '@/assets/hero.png'
 
 export function HomePage() {
   const { posts, loading } = usePosts()
   const recentPosts = posts.slice(0, 6)
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A]">
-      {/* Hero Section  */}
+    <div className="bg-[#FAFAF8] text-black min-h-screen selection:bg-[#FA520F] selection:text-white">
+      {/* Hero Section with Background Image */}
       <section 
-        className="relative border-b border-white/10 bg-cover bg-center bg-no-repeat"
+        className="relative border-b border-neutral-200 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("https://plus.unsplash.com/premium_photo-1721946441955-508af523ac60?q=80&w=2046&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+          backgroundImage: `url(${heroImage})`,
         }}
       >
-        {/* Dark overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black/70" />
+        {/* Dark overlay for text contrast - no blur/glass */}
+        <div className="absolute inset-0 bg-black/50" />
         
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-6xl md:text-8xl lg:text-9xl font-normal tracking-[-0.03em] leading-[0.95] mb-8 text-white"
+            >
+              Engineering.
+              <br />
+              Design.
+              <br />
+              Growth.
+            </motion.h1>
 
-        <div className="absolute top-0 left-0 right-0 h-12 bg-black/60 backdrop-blur-sm border-b border-white/10 flex items-center px-4 gap-2 z-10">
-         
-          <div className="w-16" />
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32 md:pb-28">
-          <div className="mx-auto max-w-5xl">
-
-            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-white/60 mt-6 leading-relaxed max-w-2xl font-mono"
+              className="text-base md:text-lg max-w-2xl leading-relaxed text-white/80 mx-auto mb-10"
             >
-              <span className="text-emerald-400">$</span> Exploring the intersection of high-performance engineering, 
+              Exploring the intersection of high-performance engineering, 
               immersive design, and strategic growth.
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-3 mt-8"
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link to="/blog">
-                <Button 
-                  className="w-full sm:w-auto bg-white text-black hover:bg-white/90 rounded-lg px-6 h-11 font-medium gap-2 group"
-                >
-                  Explore Blog
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </Button>
+                <button className="group relative border-4 border-black bg-[#FA520F] px-8 py-3 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                  <span className="absolute inset-0 border-t-2 border-l-2 border-white/40 pointer-events-none" />
+                  <span className="absolute inset-0 border-b-2 border-r-2 border-black/40 pointer-events-none" />
+                  <span className="relative flex items-center gap-2">
+                    Explore Blog
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </button>
               </Link>
               <Link to="/resume">
-                <Button 
-                  variant="outline" 
-                  className="w-full sm:w-auto border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-lg px-6 h-11 font-medium gap-2"
-                >
-                  About Me
-                  <Crown className="w-4 h-4" />
-                </Button>
+                <button className="group relative border-4 border-black bg-transparent px-8 py-3 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-black hover:text-white">
+                  <span className="absolute inset-0 border-t-2 border-l-2 border-white/20 pointer-events-none" />
+                  <span className="absolute inset-0 border-b-2 border-r-2 border-black/20 pointer-events-none" />
+                  <span className="relative">About Me</span>
+                </button>
               </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="mt-8 pt-6 border-t border-white/20"
-            >
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Recent Posts Section */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl">
+      <section className="px-6 md:px-12 py-24 md:py-32">
+        <div className="max-w-[1400px] mx-auto">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
             <div>
-              <p className="text-white/40 font-mono text-sm mt-1">
-                {posts.length} total posts: latest
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-[-0.03em] leading-[0.95]">
+                Latest Posts
+              </h2>
+              <p className="text-[10px] font-mono uppercase text-neutral-700 mt-2">
+                {posts.length} total
               </p>
             </div>
             <Link 
               to="/blog" 
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white transition-all text-sm font-mono group w-fit"
+              className="group inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-700 hover:text-black transition-colors"
             >
-              view all posts
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              view all
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           {/* Posts Grid */}
-          <div className="space-y-3">
-            <PostList posts={recentPosts} loading={loading} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-neutral-200 bg-white">
+            {recentPosts.map((post, i) => (
+              <div
+                key={post.id}
+                className={`group border-b ${i % 3 !== 2 ? 'lg:border-r' : ''} ${i < 3 ? 'md:border-b' : ''} border-neutral-200 hover:bg-neutral-50/50 transition-colors`}
+              >
+                <Link to={`/post/${post.slug}`} className="block p-8 md:p-12 min-h-[420px] flex flex-col justify-between">
+                  {post.featured_image && (
+                    <div className="aspect-video relative border border-neutral-200 overflow-hidden mb-8 bg-neutral-100">
+                      <img 
+                        src={post.featured_image} 
+                        alt={post.title} 
+                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
+                  )}
+                  <div className="mt-auto">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-[10px] font-mono font-bold uppercase px-2 py-1 bg-black text-white">Read</span>
+                      <span className="text-[10px] font-mono text-neutral-700 uppercase">
+                        {new Date(post.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-medium tracking-tight mb-3 group-hover:text-[#FA520F] transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-base text-neutral-500 leading-relaxed line-clamp-3">
+                      {post.excerpt?.replace(/^(?:TITLE|EXCERPT|CONTENT):\s*/gi, '').trim() ||
+                       post.content?.replace(/<[^>]*>/g, '').substring(0, 160)}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </div>
+
+          {recentPosts.length === 0 && !loading && (
+            <div className="text-center py-20 border border-dashed border-neutral-200">
+              <p className="font-mono text-neutral-700">No posts found.</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

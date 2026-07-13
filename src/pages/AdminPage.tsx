@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { supabase } from '@/lib/supabaseClient'
 import { Post } from '@/types'
-import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
@@ -129,26 +128,25 @@ export function AdminPage() {
     }
   }
 
-  if (authLoading) return <div className="text-center py-20">Loading...</div>
+  if (authLoading) return <div className="text-center py-20 font-mono text-neutral-700">Loading...</div>
 
   if (!user) {
     return (
-      <div className="max-w-md mx-auto py-20">
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="text-center">Admin Login</CardTitle>
-          </CardHeader>
+      <div className="max-w-md mx-auto py-20 px-6 md:px-12">
+        <Card>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Email</label>
+                <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Email</label>
                 <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Password</label>
+                <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Password</label>
                 <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
-              <Button type="submit" className="w-full">Sign In</Button>
+              <button type="submit" className="w-full relative border-4 border-black bg-[#FA520F] px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                Sign In
+              </button>
             </form>
           </CardContent>
         </Card>
@@ -158,19 +156,19 @@ export function AdminPage() {
 
   if (!isAdmin) {
     return (
-      <div className="max-w-md mx-auto py-20 text-center px-4">
-        <Card className="glass">
+      <div className="max-w-md mx-auto py-20 px-6 md:px-12">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-destructive">Access Denied</CardTitle>
+            <CardTitle className="text-center text-2xl font-normal tracking-tight text-red-600">Access Denied</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground">
-              You are logged in as <span className="font-medium text-foreground">{user.email}</span>,
+          <CardContent className="space-y-6">
+            <p className="text-neutral-500">
+              You are logged in as <span className="font-bold text-black">{user.email}</span>,
               but you do not have administrative privileges.
             </p>
-            <Button variant="outline" onClick={() => supabase.auth.signOut()} className="w-full">
+            <button onClick={() => supabase.auth.signOut()} className="w-full relative border-4 border-black bg-transparent px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider text-black shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-black hover:text-white">
               Sign Out
-            </Button>
+            </button>
           </CardContent>
         </Card>
       </div>
@@ -178,61 +176,68 @@ export function AdminPage() {
   }
 
   return (
-    <div className="space-y-8 py-8">
-      <div className="flex justify-between items-center px-4">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+    <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
+      <div className="flex justify-between items-center mb-12">
+        <div>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-[-0.03em] leading-[0.95]">
+            Admin
+          </h1>
+          <p className="text-[10px] font-mono font-bold uppercase text-neutral-700 mt-2">
+            {posts.length} posts
+          </p>
+        </div>
         {!editingPost && (
-          <Button onClick={() => setEditingPost({ title: '', content: '', excerpt: '', tags: [], published: false, slug: '' })} className="gap-2">
-            <Plus className="h-4 w-4" /> New Post
-          </Button>
+          <button onClick={() => setEditingPost({ title: '', content: '', excerpt: '', tags: [], published: false, slug: '' })} className="relative border-4 border-black bg-[#FA520F] px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            New Post
+          </button>
         )}
       </div>
 
       {editingPost ? (
-        <Card className="glass mx-4">
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>{editingPost.id ? 'Edit Post' : 'Create New Post'}</CardTitle>
+            <CardTitle className="text-2xl font-normal tracking-tight">{editingPost.id ? 'Edit Post' : 'Create New Post'}</CardTitle>
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={() => setPreviewMode(!previewMode)}
+                className="relative border-4 border-black bg-transparent px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white"
                 type="button"
               >
                 {previewMode ? 'Edit Mode' : 'Preview Mode'}
-              </Button>
-              <Button variant="ghost" size="icon" onClick={() => setEditingPost(null)}>
+              </button>
+              <button onClick={() => setEditingPost(null)} className="p-2 border-4 border-black text-neutral-700 hover:border-black hover:text-black transition-colors">
                 <X className="h-5 w-5" />
-              </Button>
+              </button>
             </div>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSave} className="space-y-6">
               {previewMode ? (
                 <div className="space-y-8">
-                  <div className="aspect-video w-full max-h-64 overflow-hidden rounded-xl glass">
+                  <div className="aspect-video w-full max-h-64 border border-neutral-200 overflow-hidden">
                     {editingPost.cover_image ? (
                       <img src={editingPost.cover_image} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Cover Image</div>
+                      <div className="w-full h-full flex items-center justify-center text-neutral-700 font-mono text-sm">No Cover Image</div>
                     )}
                   </div>
-                  <h1 className="text-3xl font-bold">{editingPost.title}</h1>
+                  <h1 className="text-4xl md:text-5xl font-normal tracking-tight">{editingPost.title}</h1>
                   <MarkdownRenderer content={editingPost.content || ''} />
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Title</label>
+                      <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Title</label>
                       <Input value={editingPost.title} onChange={(e) => handleTitleChange(e.target.value)} required />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Slug</label>
+                      <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Slug</label>
                       <Input value={editingPost.slug} onChange={(e) => setEditingPost(prev => ({ ...prev, slug: e.target.value }))} required />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Cover Image</label>
+                      <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Cover Image</label>
                       <div className="flex gap-2">
                         <Input value={editingPost.cover_image || ''} onChange={(e) => setEditingPost(prev => ({ ...prev, cover_image: e.target.value }))} placeholder="Public URL" />
                         <div className="relative">
@@ -243,37 +248,37 @@ export function AdminPage() {
                             onChange={handleImageUpload}
                             disabled={isUploading}
                           />
-                          <Button type="button" variant="outline" disabled={isUploading}>
+                          <button type="button" className="relative border-4 border-black bg-transparent px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-50" disabled={isUploading}>
                             {isUploading ? '...' : <Upload className="h-4 w-4" />}
-                          </Button>
+                          </button>
                         </div>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Excerpt</label>
+                      <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Excerpt</label>
                       <Textarea value={editingPost.excerpt} onChange={(e) => setEditingPost(prev => ({ ...prev, excerpt: e.target.value }))} rows={3} />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Tags (comma separated)</label>
+                      <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Tags (comma separated)</label>
                       <Input
                           value={editingPost.tags?.join(', ')}
                           onChange={(e) => setEditingPost(prev => ({ ...prev, tags: e.target.value.split(',').map(t => t.trim()) }))}
                       />
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <input
                           type="checkbox"
                           id="published"
                           checked={editingPost.published}
                           onChange={(e) => setEditingPost(prev => ({ ...prev, published: e.target.checked }))}
-                          className="rounded border-translucent bg-translucent"
+                          className="w-4 h-4 border-2 border-black"
                       />
-                      <label htmlFor="published" className="text-sm font-medium">Published</label>
+                      <label htmlFor="published" className="text-[10px] font-mono font-bold uppercase text-neutral-700">Published</label>
                     </div>
                   </div>
                   <div className="space-y-4">
                       <div className="space-y-2">
-                          <label className="text-sm font-medium">Content (Markdown)</label>
+                          <label className="text-[10px] font-mono font-bold uppercase text-neutral-700">Content (Markdown)</label>
                           <Textarea
                               value={editingPost.content}
                               onChange={(e) => setEditingPost(prev => ({ ...prev, content: e.target.value }))}
@@ -284,36 +289,50 @@ export function AdminPage() {
                   </div>
                 </div>
               )}
-              <div className="flex justify-end gap-4">
-                <Button variant="outline" type="button" onClick={() => setEditingPost(null)}>Cancel</Button>
-                <Button type="submit" className="gap-2"><Save className="h-4 w-4" /> Save Post</Button>
+              <div className="flex justify-end gap-4 pt-4 border-t border-neutral-200">
+                <button type="button" onClick={() => setEditingPost(null)} className="relative border-4 border-black bg-transparent px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider text-black shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-black hover:text-white">
+                  Cancel
+                </button>
+                <button type="submit" className="relative border-4 border-black bg-[#FA520F] px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex items-center gap-2">
+                  <Save className="h-4 w-4" />
+                  Save Post
+                </button>
               </div>
             </form>
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 gap-4 px-4">
-          {posts.map(post => (
-            <div key={post.id} className="glass p-4 flex items-center justify-between">
+        <div className="grid grid-cols-1 gap-0 border border-neutral-200 bg-white">
+          {posts.map((post, i) => (
+            <div key={post.id} className={`flex items-center justify-between p-6 ${i !== posts.length - 1 ? 'border-b border-neutral-200' : ''} hover:bg-neutral-50/50 transition-colors`}>
               <div className="flex items-center gap-4">
-                <div className={post.published ? 'text-green-500' : 'text-yellow-500'}>
-                    {post.published ? <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
+                <div className={post.published ? 'text-[#FA520F]' : 'text-neutral-700'}>
+                    {post.published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                 </div>
                 <div>
-                  <h3 className="font-bold">{post.title}</h3>
-                  <p className="text-xs text-muted-foreground">{post.slug} • {new Date(post.created_at).toLocaleDateString()}</p>
+                  <h3 className="font-medium text-lg tracking-tight">{post.title}</h3>
+                  <div className="flex items-center gap-3 text-[10px] font-mono text-neutral-700">
+                    <span>{post.slug}</span>
+                    <span>•</span>
+                    <span>{new Date(post.created_at).toLocaleDateString()}</span>
+                  </div>
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button variant="ghost" size="icon" onClick={() => setEditingPost(post)}>
-                  <Pencil className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="text-red-500" onClick={() => handleDelete(post.id)}>
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                <button onClick={() => setEditingPost(post)} className="p-2 border-2 border-neutral-200 text-neutral-700 hover:border-black hover:text-black transition-colors">
+                  <Pencil className="h-3.5 w-3.5" />
+                </button>
+                <button onClick={() => handleDelete(post.id)} className="p-2 border-2 border-neutral-200 text-red-400 hover:border-red-600 hover:text-red-600 transition-colors">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
               </div>
             </div>
           ))}
+          {posts.length === 0 && (
+            <div className="p-12 text-center">
+              <p className="font-mono text-neutral-700">No posts yet. Create your first post!</p>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -1,233 +1,197 @@
-import { Button } from '@/components/ui/Button'
 import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow, Github, Globe } from 'lucide-react'
 
 export function ResumePage() {
   return (
-    <div className="min-h-screen bg-[#0A0A0A]">
-      <div className="px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-8">
-            <div className="flex items-center gap-2 text-emerald-400 font-mono text-sm mb-3">
-
-            </div>
-          </div>
-
-          {/* Header Section - Warp style */}
-          <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12 pb-8 border-b border-white/10">
-            <div className="space-y-3">
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tighter">
-                <span className="text-white">Shadrack </span>
-                <span className="text-emerald-400">T. John</span>
+    <div className="bg-[#FAFAF8] text-black min-h-screen selection:bg-[#FA520F] selection:text-white">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
+        <div className="max-w-5xl mx-auto">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-16 pb-8 border-b border-neutral-200">
+            <div className="space-y-4">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-normal tracking-[-0.03em] leading-[0.95]">
+                Shadrack Timothy John Mwalyanga
               </h1>
-              <p className="text-lg text-white/60 font-mono">
-                Computer Engineering Student & ML/Full-Stack Developer
+              <p className="text-base md:text-lg text-neutral-500 font-mono">
+                Computer Software Engineer and Young Aspiring AI Researcher. Passionate about building scalable software, AI-driven applications, and contributing to open-source projects.
               </p>
-              <div className="flex flex-wrap gap-4 text-sm font-mono text-white/40">
-                <span className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" /> Dodoma, Tanzania</span>
+              <div className="flex flex-wrap gap-4 text-[10px] font-mono font-bold uppercase text-neutral-700">
+                <span className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" /> Dodoma, Dar es Salaam, Tanzania</span>
                 <span className="flex items-center gap-1.5"><Mail className="h-3.5 w-3.5" /> mwalyangashadrack@gmail.com</span>
               </div>
             </div>
-            <a href="/resume.pdf" download="Shadrack_John_Resume.pdf">
-              <Button className="gap-2 bg-white text-black hover:bg-white/90 rounded-lg px-5 h-10 font-mono text-sm">
-                <Download className="h-4 w-4" /> download.pdf
-              </Button>
+            <a href="/resume.pdf" download="Shadrack_John_Resume.pdf" className="shrink-0">
+              <button className="relative border-4 border-black bg-[#FA520F] px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider text-white shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                download.pdf
+              </button>
             </a>
           </div>
 
           {/* Main Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-neutral-200 bg-white">
             {/* Left Column - 2/3 width */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 border-r border-neutral-200">
               {/* About Section */}
-              <section className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-3 pb-2 border-b border-white/10">
-                  <Users className="h-4 w-4 text-emerald-400" /> 
-                  <span className="font-mono text-emerald-400">$ about</span>
+              <div className="p-6 md:p-8 border-b border-neutral-200">
+                <h2 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-700 mb-4">
+                  <Users className="h-4 w-4" />
+                  about
                 </h2>
-                <p className="text-white/60 font-mono text-sm leading-relaxed">
-I’m an Innovative Computer Engineering student and Freelance System Developer with 3+ years of experience in
-building scalable System applications. I have Expertise in building intelligent recommendation systems, Artificial
-Intelligence Integrated systems and Web Apps, Skilled in Python, React, TypeScript,Tailwind Css and also
-Skilled in Data Engineering with Python and Jupyter. I’m also an Open source contributor on Github. I’m
-Currently Finalizing my Bsc. Degree of Science in Computer Engineering at University of Dodoma, College Of
-Informatics and Virtual Education (CIVE).
-
+                <p className="text-base text-neutral-600 leading-relaxed">
+                  Hi, My name is Shadrack or Shadrackovsky and freelance systems developer with 4+ years building scalable software and AI-driven
+applications for African markets. Focused on low-resource language technology, intelligent recommendation systems, and full-stack
+product development. Proficient in Python, React, TypeScript, and Tailwind CSS, with hands-on data engineering experience in
+Python and Jupyter Notebook. Founder of ANTERA, an AI research company, and an active open-source contributor.
                 </p>
-              </section>
+              </div>
 
               {/* Experience Section */}
-              <section className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
-                  <Briefcase className="h-4 w-4 text-emerald-400" />
-                  <span className="font-mono text-emerald-400">$ experience</span>
+              <div className="p-6 md:p-8 border-b border-neutral-200">
+                <h2 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-700 mb-6">
+                  <Briefcase className="h-4 w-4" />
+                  experience
                 </h2>
-                <div className="space-y-5">
+                <div className="space-y-6">
                   {/* Technical Intern */}
                   <div>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
-                      <h3 className="text-white font-semibold">Technical Intern</h3>
-                      <span className="text-xs font-mono text-white/40 flex items-center gap-1">
-                        <Calendar className="h-3 w-3" /> July 2024 - Sep 2024
+                      <h3 className="text-lg font-medium tracking-tight">Technical Intern</h3>
+                      <span className="text-[10px] font-mono font-bold uppercase text-neutral-700 flex items-center gap-1">
+                        <Calendar className="h-3 w-3" /> July 2024 - October 2024
                       </span>
                     </div>
-                    <p className="text-emerald-400 font-mono text-sm mb-2">Azampay Tanzania • Dar es Salaam</p>
-                    <p className="text-white/50 font-mono text-xs leading-relaxed">
-                      Integrated multiple payment gateways and third-party APIs into production fintech platforms. 
-                      Collaborated on performance tuning, security enhancements, and transaction reliability. 
-                      Participated in agile development cycles and code review sessions.
-                    </p>
+                    <p className="text-[#FA520F] font-mono text-sm mb-2">Azampay Tanzania, Dar es Salaam</p>
+
                   </div>
 
                   {/* Freelance Developer */}
                   <div>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
-                      <h3 className="text-white font-semibold">Freelance Full-Stack Developer</h3>
-                      <span className="text-xs font-mono text-white/40 flex items-center gap-1">
+                      <h3 className="text-lg font-medium tracking-tight">Freelance Full-Stack Developer</h3>
+                      <span className="text-[10px] font-mono font-bold uppercase text-neutral-700 flex items-center gap-1">
                         <Calendar className="h-3 w-3" /> 2023 - Present
                       </span>
                     </div>
-                    <p className="text-emerald-400 font-mono text-sm mb-2">Self-employed • Remote</p>
-                    <p className="text-white/50 font-mono text-xs leading-relaxed">
-                      Developed custom systems and web applications for local SMEs. Designed and launched multiple 
-                      web app platforms with React + FastAPI stack. Optimized business workflows through automated 
-                      reporting. Provided ongoing technical support and maintenance.
-                    </p>
+                    <p className="text-[#FA520F] font-mono text-sm mb-2">Freelancer, Remote</p>
                   </div>
                 </div>
-              </section>
+              </div>
 
               {/* Education Section */}
-              <section className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
-                  <GraduationCap className="h-4 w-4 text-emerald-400" />
-                  <span className="font-mono text-emerald-400">$ education</span>
+              <div className="p-6 md:p-8">
+                <h2 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-700 mb-6">
+                  <GraduationCap className="h-4 w-4" />
+                  education
                 </h2>
                 <div className="space-y-4">
                   <div>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
-                      <h3 className="text-white font-semibold">BSc in Computer Engineering</h3>
-                      <span className="text-xs font-mono text-white/40 flex items-center gap-1">
+                      <h3 className="text-lg font-medium tracking-tight">BSc in Computer Engineering</h3>
+                      <span className="text-[10px] font-mono font-bold uppercase text-neutral-700 flex items-center gap-1">
                         <Calendar className="h-3 w-3" /> 2022 - Present
                       </span>
                     </div>
-                    <p className="text-emerald-400 font-mono text-sm mb-1">University of Dodoma (CIVE)</p>
-                    <p className="text-white/50 font-mono text-xs">Specializing in Software Development, Machine Learning, System Engineering.</p>
+                    <p className="text-[#FA520F] font-mono text-sm mb-1">University of Dodoma (CIVE)</p>
+                    <p className="text-neutral-500 text-sm">Specializing in Software Development, Machine Learning, System Engineering.</p>
                   </div>
                   <div>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
-                      <h3 className="text-white font-semibold">Diploma in Computer Science</h3>
-                      <span className="text-xs font-mono text-white/40 flex items-center gap-1">
+                      <h3 className="text-lg font-medium tracking-tight">Diploma in Computer Science</h3>
+                      <span className="text-[10px] font-mono font-bold uppercase text-neutral-700 flex items-center gap-1">
                         <Calendar className="h-3 w-3" /> 2020 - 2022
                       </span>
                     </div>
-                    <p className="text-emerald-400 font-mono text-sm">College of Information and Communication Technologies (COICT)</p>
+                    <p className="text-[#FA520F] font-mono text-sm">College of Information and Communication Technologies (COICT)</p>
                   </div>
                 </div>
-              </section>
+              </div>
             </div>
 
             {/* Right Column - 1/3 width */}
-            <div className="space-y-6">
+            <div className="p-6 md:p-8">
               {/* Technical Skills */}
-              <div className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
-                  <Code className="h-4 w-4 text-emerald-400" />
-                  <span className="font-mono text-emerald-400">$ skills</span>
+              <div className="mb-8">
+                <h2 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-700 mb-4">
+                  <Code className="h-4 w-4" />
+                  skills
                 </h2>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-white/60 font-mono text-xs mb-2">Languages & Frameworks</p>
+                    <p className="text-[10px] font-mono font-bold uppercase text-neutral-700 mb-2">Languages & Frameworks</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {['Python', 'FastAPI', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js'].map(skill => (
-                        <span key={skill} className="text-[11px] font-mono bg-white/10 text-white/60 px-2 py-1 rounded border border-white/10">{skill}</span>
+                      {['Python', 'FastAPI', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'].map(skill => (
+                        <span key={skill} className="text-[9px] font-mono font-bold uppercase px-2 py-1 bg-black text-white border border-black">{skill}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <p className="text-white/60 font-mono text-xs mb-2">AI & Machine Learning</p>
+                    <p className="text-[10px] font-mono font-bold uppercase text-neutral-700 mb-2">AI & Machine Learning</p>
                     <div className="flex flex-wrap gap-1.5">
                       {['LLMs', 'RAG', 'Vector DB', 'LangChain', 'PyTorch', 'Hugging Face', 'Computer Vision'].map(skill => (
-                        <span key={skill} className="text-[11px] font-mono bg-white/10 text-white/60 px-2 py-1 rounded border border-white/10">{skill}</span>
+                        <span key={skill} className="text-[9px] font-mono font-bold uppercase px-2 py-1 bg-black text-white border border-black">{skill}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <p className="text-white/60 font-mono text-xs mb-2">Data & Cloud</p>
+                    <p className="text-[10px] font-mono font-bold uppercase text-neutral-700 mb-2">Data & Cloud</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {['SQL', 'PostgreSQL', 'Azure', 'ETL Pipelines', 'Apache Spark', 'Supabase', 'Streamlit', 'Power BI'].map(skill => (
-                        <span key={skill} className="text-[11px] font-mono bg-white/10 text-white/60 px-2 py-1 rounded border border-white/10">{skill}</span>
+                      {['SQL', 'PostgreSQL', 'Azure', 'Docker', 'ETL Pipelines', 'Apache Spark', 'Supabase', 'RabbitMQ', 'Power BI'].map(skill => (
+                        <span key={skill} className="text-[9px] font-mono font-bold uppercase px-2 py-1 bg-black text-white border border-black">{skill}</span>
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Certifications */}
-              <div className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
-                  <Award className="h-4 w-4 text-emerald-400" />
-                  <span className="font-mono text-emerald-400">$ certifications</span>
-                </h2>
-                <div className="space-y-3">
-                  {[
-                    { name: 'AZ-900 Azure Fundamentals', status: 'In progress', date: 'Q2 2025' },
-                    { name: 'AI-102 Azure AI Engineer', status: 'Target', date: 'Q3 2025' },
-                    { name: 'DP-203 Azure Data Engineer', status: 'Target', date: 'Q4 2025' }
-                  ].map((cert, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                      <div>
-                        <p className="text-white/80 font-mono text-xs">{cert.name}</p>
-                        <p className="text-white/30 font-mono text-[10px]">{cert.status} — {cert.date}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+           
 
-              {/* 2025 Roadmap */}
-              <div className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
-                  <Workflow className="h-4 w-4 text-emerald-400" />
-                  <span className="font-mono text-emerald-400">$ roadmap_2025</span>
-                </h2>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-xs font-mono">
-                    <span className="text-emerald-400">Q1-Q2:</span>
-                    <span className="text-white/50">Python, SQL, Cloud Fundamentals</span>
-                  </div>
-                  <div className="flex justify-between text-xs font-mono">
-                    <span className="text-emerald-400">Q3:</span>
-                    <span className="text-white/50">Data Engineering (Spark, dbt, ADF)</span>
-                  </div>
-                  <div className="flex justify-between text-xs font-mono">
-                    <span className="text-emerald-400">Q4:</span>
-                    <span className="text-white/50">AI/LLMs, RAG, Azure OpenAI</span>
-                  </div>
-                  <div className="mt-3 pt-2 border-t border-white/10 flex justify-between text-xs font-mono">
-                    <span className="text-white/60">Focus:</span>
-                    <span className="text-emerald-400">Responsible & Ethical AI</span>
-                  </div>
-                </div>
-              </div>
+            {/* Roadmap */}
+<div className="mb-8">
+  <h2 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-700 mb-4">
+    <Workflow className="h-4 w-4" />
+    roadmap
+  </h2>
+  <div className="space-y-2">
+    <div className="flex justify-between text-xs font-mono">
+      <span className="text-[#FA520F] font-bold">Now:</span>
+      <span className="text-neutral-500">Scaling Swahili LLM & ANTERA products</span>
+    </div>
+    <div className="flex justify-between text-xs font-mono">
+      <span className="text-[#FA520F] font-bold">Next:</span>
+      <span className="text-neutral-500">Fine-tuning pipelines, LoRA/QLoRA at scale</span>
+    </div>
+    <div className="flex justify-between text-xs font-mono">
+      <span className="text-[#FA520F] font-bold">2026:</span>
+      <span className="text-neutral-500">Graduate study in AI/Data (Poland)</span>
+    </div>
+    <div className="mt-3 pt-3 border-t border-neutral-200 flex justify-between text-xs font-mono">
+      <span className="text-neutral-700 font-bold uppercase">Focus:</span>
+      <span className="text-[#FA520F]">Low-resource language AI for Africa</span>
+    </div>
+  </div>
+</div>
 
               {/* Links */}
-              <div className="bg-white/5 border border-white/10 rounded-lg p-5">
-                <h2 className="text-white font-bold text-lg flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
-                  <Globe className="h-4 w-4 text-emerald-400" />
-                  <span className="font-mono text-emerald-400">$ links</span>
+              <div>
+                <h2 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-700 mb-4">
+                  <Globe className="h-4 w-4" />
+                  links
                 </h2>
                 <div className="space-y-2">
-                  <a href="https://shedysilicon.netlify.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-white/60 hover:text-emerald-400 transition-colors">
-                    <ExternalLink className="h-3.5 w-3.5" /> portfolio
+                  <a href="https://shedysilicon.netlify.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-neutral-700 hover:text-[#FA520F] transition-colors">
+                    <ExternalLink className="h-3.5 w-3.5" /> Shadrackovsky
                   </a>
-                  <a href="https://github.com/zuck30" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-white/60 hover:text-emerald-400 transition-colors">
+
+                   <a href="https://antera.co.tz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-neutral-700 hover:text-[#FA520F] transition-colors">
+                    <ExternalLink className="h-3.5 w-3.5" /> Antera
+                  </a>
+                  <a href="https://github.com/zuck30" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-neutral-700 hover:text-[#FA520F] transition-colors">
                     <Github className="h-3.5 w-3.5" /> github
                   </a>
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/10">
-                  <p className="text-white/40 font-mono text-xs">English (Fluent) • Swahili (Native)</p>
-                  <p className="text-white/30 font-mono text-[10px] mt-1">Open to remote and onsite opportunities</p>
+                <div className="mt-4 pt-4 border-t border-neutral-200">
+                  <p className="text-[10px] font-mono font-bold uppercase text-neutral-700">English (Fluent), Swahili (Native)</p>
+                  <p className="text-[10px] font-mono text-neutral-700 mt-1">Open to remote and onsite opportunities</p>
                 </div>
               </div>
             </div>
