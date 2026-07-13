@@ -14,7 +14,7 @@ export function TagFilter({ tags, loading }: TagFilterProps) {
   if (loading) {
     return (
       <div className="flex flex-wrap gap-2 items-center">
-        <span className="text-xs font-mono text-white/40">loading tags...</span>
+        <span className="text-[10px] font-mono font-bold uppercase text-neutral-700">loading tags...</span>
       </div>
     )
   }
@@ -25,9 +25,9 @@ export function TagFilter({ tags, loading }: TagFilterProps) {
   return (
     <div className="flex flex-wrap gap-2 items-center">
       <div className="flex items-center gap-1.5 mr-1">
-        <Hash className="h-3 w-3 text-emerald-400" />
-        <span className="text-xs font-mono text-white/40">tags</span>
-        <span className="text-white/20 mx-1">|</span>
+        <Hash className="h-3 w-3 text-neutral-700" />
+        <span className="text-[10px] font-mono font-bold uppercase text-neutral-700">tags</span>
+        <span className="text-neutral-300 mx-1">|</span>
       </div>
 
       {/* Tag buttons */}
@@ -37,10 +37,10 @@ export function TagFilter({ tags, loading }: TagFilterProps) {
             key={tag}
             onClick={() => toggleTag(tag)}
             className={cn(
-              "px-2.5 py-1 rounded text-xs font-mono transition-all duration-150",
+              "px-2.5 py-1 text-[10px] font-mono font-bold uppercase transition-all duration-150 border-2",
               selectedTags.includes(tag)
-                ? "bg-emerald-400 text-black border border-emerald-400"
-                : "bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white/80"
+                ? "bg-[#FA520F] text-white border-[#FA520F]"
+                : "bg-transparent text-neutral-700 border-neutral-200 hover:border-black hover:text-black"
             )}
           >
             {tag}
@@ -52,7 +52,7 @@ export function TagFilter({ tags, loading }: TagFilterProps) {
       {selectedTags.length > 0 && (
         <button
           onClick={clearFilters}
-          className="ml-1 p-1 rounded text-white/30 hover:text-white/60 hover:bg-white/10 transition-colors"
+          className="ml-1 p-1 text-neutral-700 hover:text-black transition-colors border-2 border-transparent hover:border-black"
           aria-label="Clear all filters"
         >
           <X className="h-3 w-3" />

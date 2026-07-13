@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Search, X } from 'lucide-react'
-import { Input } from '@/components/ui/Input'
 import { useFilterStore } from '@/store/filterStore'
 
 export function SearchBar() {
@@ -24,25 +23,25 @@ export function SearchBar() {
 
   return (
     <div className="relative w-full">
-      <div className="relative">
+      <div className="relative border-4 border-black bg-white">
         <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
-          <Search className="h-3.5 w-3.5 text-white/40" />
+          <Search className="h-3.5 w-3.5 text-neutral-700" />
         </div>
         
         {/* Search input */}
-        <Input
+        <input
           type="text"
-          placeholder="grep posts..."
+          placeholder="search posts..."
           value={localQuery}
           onChange={(e) => setLocalQuery(e.target.value)}
-          className="pl-16 pr-10 h-10 bg-white/5 border-white/10 text-white placeholder:text-white/30 font-mono text-sm rounded-lg focus:border-emerald-400/50 focus:ring-emerald-400/20"
+          className="w-full pl-10 pr-10 py-3 bg-transparent text-black placeholder:text-neutral-700 font-mono text-sm focus:outline-none"
         />
         
         {/* Clear button - only show when there's text */}
         {localQuery && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-700 hover:text-black transition-colors"
             aria-label="Clear search"
           >
             <X className="h-3.5 w-3.5" />
@@ -52,7 +51,7 @@ export function SearchBar() {
       
       {/* Search hint - optional */}
       {!localQuery && (
-        <div className="absolute -bottom-5 left-3 text-[10px] font-mono text-white/20 pointer-events-none hidden sm:block">
+        <div className="mt-1 text-[9px] font-mono font-bold uppercase text-neutral-700 pointer-events-none">
           press / to search
         </div>
       )}
