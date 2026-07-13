@@ -95,10 +95,10 @@ export function BlogPage() {
               className={`group border-b ${i % 3 !== 2 ? 'lg:border-r' : ''} ${i < 3 ? 'md:border-b' : ''} border-neutral-200 hover:bg-neutral-50/50 transition-colors`}
             >
               <a href={`/post/${post.slug}`} className="block p-8 md:p-12 min-h-[420px] flex flex-col justify-between">
-                {post.featured_image && (
+                {post.cover_image && (
                   <div className="aspect-video relative border border-neutral-200 overflow-hidden mb-8 bg-neutral-100">
                     <img 
-                      src={post.featured_image} 
+                      src={post.cover_image} 
                       alt={post.title} 
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
                     />
