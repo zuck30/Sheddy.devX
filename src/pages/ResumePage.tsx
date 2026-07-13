@@ -1,4 +1,4 @@
-import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Award, Code, Users, Workflow, Github, Globe } from 'lucide-react'
+import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Code, Users, Workflow, Github, Globe } from 'lucide-react'
 
 export function ResumePage() {
   return (
