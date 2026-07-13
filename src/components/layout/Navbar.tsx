@@ -24,51 +24,51 @@ export function Navbar() {
       <Link 
         to="/" 
         onClick={onClick}
-        className={`flex items-center gap-2 font-mono transition-colors ${
+        className={`flex items-center gap-2 font-mono font-bold uppercase tracking-wider transition-colors ${
           isMobile 
-            ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
-            : 'text-sm text-white/60 hover:text-white'
+            ? 'text-neutral-700 hover:text-black py-3 px-4 border-b border-neutral-200' 
+            : 'text-[10px] text-neutral-700 hover:text-black'
         }`}
       >
-        <Home className="h-4 w-4" />
-        <span>~/home</span>
+        <Home className="h-3.5 w-3.5" />
+        <span>home</span>
       </Link>
       <Link 
         to="/blog" 
         onClick={onClick}
-        className={`flex items-center gap-2 font-mono transition-colors ${
+        className={`flex items-center gap-2 font-mono font-bold uppercase tracking-wider transition-colors ${
           isMobile 
-            ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
-            : 'text-sm text-white/60 hover:text-white'
+            ? 'text-neutral-700 hover:text-black py-3 px-4 border-b border-neutral-200' 
+            : 'text-[10px] text-neutral-700 hover:text-black'
         }`}
       >
-        <BookOpen className="h-4 w-4" />
-        <span>~/blog</span>
+        <BookOpen className="h-3.5 w-3.5" />
+        <span>blog</span>
       </Link>
       <Link 
         to="/resume" 
         onClick={onClick}
-        className={`flex items-center gap-2 font-mono transition-colors ${
+        className={`flex items-center gap-2 font-mono font-bold uppercase tracking-wider transition-colors ${
           isMobile 
-            ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
-            : 'text-sm text-white/60 hover:text-white'
+            ? 'text-neutral-700 hover:text-black py-3 px-4 border-b border-neutral-200' 
+            : 'text-[10px] text-neutral-700 hover:text-black'
         }`}
       >
-        <UserIcon className="h-4 w-4" />
-        <span>~/resume</span>
+        <UserIcon className="h-3.5 w-3.5" />
+        <span>resume</span>
       </Link>
       {isAdmin && (
         <Link 
           to="/admin" 
           onClick={onClick}
-          className={`flex items-center gap-2 font-mono transition-colors ${
+          className={`flex items-center gap-2 font-mono font-bold uppercase tracking-wider transition-colors ${
             isMobile 
-              ? 'text-white/80 hover:text-emerald-400 py-3 px-4 rounded-lg hover:bg-white/10' 
-              : 'text-sm text-white/60 hover:text-white'
+              ? 'text-neutral-700 hover:text-black py-3 px-4 border-b border-neutral-200' 
+              : 'text-[10px] text-neutral-700 hover:text-black'
           }`}
         >
-          <LayoutDashboard className="h-4 w-4" />
-          <span>~/admin</span>
+          <LayoutDashboard className="h-3.5 w-3.5" />
+          <span>admin</span>
         </Link>
       )}
     </>
@@ -76,25 +76,23 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full bg-[#0A0A0A] border-b border-white/10">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between max-w-7xl mx-auto">
-            {/* Logo*/}
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 p-0.5 shadow-lg shadow-emerald-400/20">
-                <div className="w-full h-full rounded-full bg-[#0A0A0A] flex items-center justify-center overflow-hidden">
-                  <img 
-                    src="/duck.png" 
-                    alt="Sheddy.dev logo" 
-                    className="h-7 w-7 object-contain rounded-full"
-                    onError={(e) => {
-                      console.error('Logo failed to load:', e)
-                      e.currentTarget.style.display = 'none'
-                    }}
-                  />
-                </div>
+      <nav className="sticky top-0 z-50 w-full bg-[#FAFAF8] border-b border-neutral-200">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="h-8 w-8 border-2 border-black flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/duck.png" 
+                  alt="Sheddy.dev logo" 
+                  className="h-6 w-6 object-contain"
+                  onError={(e) => {
+                    console.error('Logo failed to load:', e)
+                    e.currentTarget.style.display = 'none'
+                  }}
+                />
               </div>
-              <span className="text-sm font-mono font-semibold text-white group-hover:text-emerald-400 transition-colors hidden sm:inline">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-black group-hover:text-[#FA520F] transition-colors hidden sm:inline">
                 sheddy.dev
               </span>
             </Link>
@@ -105,25 +103,25 @@ export function Navbar() {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {/* Auth section */}
               {user ? (
-                <div className="flex items-center gap-2">
-                  <span className="hidden sm:inline text-xs font-mono text-white/40">
+                <div className="flex items-center gap-3">
+                  <span className="hidden sm:inline text-[10px] font-mono font-bold uppercase text-neutral-700">
                     {user.email?.split('@')[0]}
                   </span>
                   <button
                     onClick={() => signOut()}
-                    className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    className="p-2 border-2 border-neutral-200 text-neutral-700 hover:border-black hover:text-black transition-colors"
                     aria-label="Sign out"
                   >
-                    <LogOut className="h-4 w-4" />
+                    <LogOut className="h-3.5 w-3.5" />
                   </button>
                 </div>
               ) : (
                 <Link to="/admin">
-                  <button className="px-3 py-1.5 rounded-lg text-xs font-mono text-white/60 hover:text-white hover:bg-white/10 transition-colors">
-                    $ login
+                  <button className="relative border-4 border-black bg-transparent px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white">
+                    login
                   </button>
                 </Link>
               )}
@@ -131,10 +129,10 @@ export function Navbar() {
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                className="md:hidden p-2 border-2 border-neutral-200 text-neutral-700 hover:border-black hover:text-black transition-colors"
                 aria-label="Menu"
               >
-                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
               </button>
             </div>
           </div>
@@ -143,8 +141,8 @@ export function Navbar() {
 
       {/* Mobile menu drawer */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-14 z-50 bg-[#0A0A0A]">
-          <div className="flex flex-col p-4 space-y-1">
+        <div className="md:hidden fixed inset-0 top-16 z-50 bg-[#FAFAF8] border-t border-neutral-200">
+          <div className="flex flex-col p-6">
             <NavLinks isMobile onClick={() => setMobileOpen(false)} />
           </div>
         </div>
