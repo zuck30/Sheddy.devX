@@ -41,8 +41,7 @@ export function HomePage() {
               transition={{ delay: 0.2 }}
               className="text-base md:text-lg max-w-2xl leading-relaxed text-white/80 mx-auto mb-10"
             >
-              Exploring the intersection of high-performance engineering, 
-              immersive design, and strategic growth.
+              I, Shadrack just like building fast software and clean interfaces with a unique taste that actually work. 
             </motion.p>
 
             <motion.div
