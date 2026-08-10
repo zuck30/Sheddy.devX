@@ -43,7 +43,7 @@ export function HomePage() {
             >
               I, Shadrack just like building fast software and clean interfaces with a unique taste that actually work. 
             </motion.p>
-
+{/* 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ export function HomePage() {
                   <span className="relative">About Me</span>
                 </button>
               </Link>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </section>
