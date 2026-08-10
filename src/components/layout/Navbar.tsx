@@ -120,9 +120,9 @@ export function Navbar() {
                 </div>
               ) : (
                 <Link to="/admin">
-                  <button className="relative border-4 border-black bg-transparent px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white">
+                  {/* <button className="relative border-4 border-black bg-transparent px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white">
                     login
-                  </button>
+                  </button> */}
                 </Link>
               )}
 
