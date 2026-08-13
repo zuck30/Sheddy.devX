@@ -74,7 +74,7 @@ export function PostDetail() {
 
   if (loading) {
     return (
-      <div className="bg-[#FAFAF8] text-black min-h-screen">
+      <div className="bg-[#FAFAF8] text-black min-h-screen pt-16 md:pt-20 lg:pt-24">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
           <div className="max-w-4xl mx-auto">
             <div className="animate-pulse space-y-8">
@@ -94,7 +94,7 @@ export function PostDetail() {
 
   if (error || !post) {
     return (
-      <div className="bg-[#FAFAF8] text-black min-h-screen flex items-center justify-center">
+      <div className="bg-[#FAFAF8] text-black min-h-screen flex items-center justify-center pt-16 md:pt-20 lg:pt-24">
         <div className="text-center">
           <p className="font-mono text-neutral-700">Post not found</p>
           <Link to="/blog" className="text-[#FA520F] font-mono text-sm mt-4 inline-block hover:underline">
@@ -108,43 +108,34 @@ export function PostDetail() {
   const voteCount = (post.upvotes || 0) - (post.downvotes || 0)
 
   return (
-    <article className="bg-[#FAFAF8] text-black min-h-screen selection:bg-[#FA520F] selection:text-white">
+    <article className="bg-[#FAFAF8] text-black min-h-screen selection:bg-[#FA520F] selection:text-white pt-16 md:pt-20 lg:pt-24">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
-          <Link to="/blog" className="group inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-700 hover:text-black transition-colors mb-12">
+          <Link to="/blog" className="group inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-700 hover:text-[#FA520F] transition-colors mb-12">
             <ArrowLeft className="h-4 w-4" />
-            back
+            back to blog
           </Link>
 
           {/* Post header */}
           <header className="mb-16">
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {post.tags.map(tag => (
-                <span key={tag} className="text-[9px] font-mono font-bold uppercase px-2 py-1 bg-black text-white border border-black">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-
             {/* Title */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-normal tracking-[-0.03em] leading-[0.95] text-black mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-[-0.02em] leading-[1.1] text-black mb-6">
               {post.title}
             </h1>
 
             {/* Meta info */}
-            <div className="flex flex-wrap items-center gap-6 text-[10px] font-mono font-bold uppercase text-neutral-700 border-t border-neutral-200 pt-6">
+            <div className="flex flex-wrap items-center gap-6 text-[10px] font-mono font-bold uppercase text-neutral-700 border-y border-neutral-200 py-6">
               <span className="flex items-center gap-1.5">
-                <Calendar className="h-3.5 w-3.5" />
+                <Calendar className="h-3.5 w-3.5 text-[#FA520F]" />
                 {formatDate(post.created_at)}
               </span>
               <span className="flex items-center gap-1.5">
-                <Clock className="h-3.5 w-3.5" />
+                <Clock className="h-3.5 w-3.5 text-[#FA520F]" />
                 {estimateReadingTime(post.content)}
               </span>
               <span className="flex items-center gap-1.5">
-                <Eye className="h-3.5 w-3.5" />
+                <Eye className="h-3.5 w-3.5 text-[#FA520F]" />
                 {post.views} views
               </span>
             </div>
@@ -152,31 +143,31 @@ export function PostDetail() {
 
           {/* Cover image */}
           {post.cover_image && (
-            <div className="border border-neutral-200 overflow-hidden mb-16">
+            <div className="border border-neutral-200 overflow-hidden mb-16 bg-[#F5F5F5]">
               <img 
                 src={post.cover_image} 
                 alt={post.title} 
-                className="w-full object-cover max-h-[500px]" 
+                className="w-full object-cover max-h-[500px] group-hover:scale-105 transition-transform duration-500" 
                 loading="lazy" 
               />
             </div>
           )}
 
           {/* Markdown content */}
-          <div className="prose prose-neutral max-w-none mb-16 text-neutral-800
-            prose-headings:text-black prose-headings:font-bold prose-headings:tracking-tight
+          <div className="prose prose-neutral max-w-none mb-16 text-neutral-700
+            prose-headings:text-black prose-headings:font-medium prose-headings:tracking-tight
             prose-h2:text-[32px] prose-h2:mt-16 prose-h2:mb-6 prose-h2:border-none
             prose-h3:text-[24px] prose-h3:mt-12 prose-h3:mb-4
-            prose-p:text-[19px] prose-p:leading-[32px] prose-p:text-neutral-800 prose-p:mb-8
-            prose-pre:bg-black prose-pre:text-white prose-pre:rounded-none prose-pre:border prose-pre:border-neutral-500 prose-pre:p-6
-            prose-blockquote:border-l-4 prose-blockquote:border-neutral-500 prose-blockquote:font-normal prose-blockquote:italic prose-blockquote:bg-transparent prose-blockquote:pl-6 prose-blockquote:py-2 prose-blockquote:my-10 prose-blockquote:text-neutral-600
+            prose-p:text-[17px] prose-p:leading-[30px] prose-p:text-neutral-700 prose-p:mb-8 prose-p:font-light
+            prose-pre:bg-black prose-pre:text-white prose-pre:rounded-none prose-pre:border prose-pre:border-neutral-200 prose-pre:p-6
+            prose-blockquote:border-l-4 prose-blockquote:border-[#FA520F] prose-blockquote:font-normal prose-blockquote:italic prose-blockquote:bg-transparent prose-blockquote:pl-6 prose-blockquote:py-2 prose-blockquote:my-10 prose-blockquote:text-neutral-600
             prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-8
             prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-8
-            prose-li:text-[19px] prose-li:leading-[32px]
+            prose-li:text-[17px] prose-li:leading-[30px] prose-li:font-light
             prose-table:border-none prose-table:my-12
-            prose-th:border-b prose-th:border-neutral-600 prose-th:p-3 prose-th:text-sm prose-th:font-bold
+            prose-th:border-b prose-th:border-neutral-300 prose-th:p-3 prose-th:text-sm prose-th:font-bold
             prose-td:p-3 prose-td:border-b prose-td:border-neutral-200 prose-td:text-[17px]
-            prose-a:text-black prose-a:font-normal prose-a:underline prose-a:decoration-neutral-700 hover:prose-a:decoration-black
+            prose-a:text-[#FA520F] prose-a:font-normal prose-a:underline prose-a:decoration-[#FA520F]/30 hover:prose-a:decoration-[#FA520F]
             prose-strong:font-bold prose-strong:text-black
             prose-img:border-none prose-img:shadow-none prose-img:my-12
           ">
@@ -184,17 +175,17 @@ export function PostDetail() {
           </div>
 
           {/* Footer with voting and sharing */}
-          <footer className="border-t border-neutral-500 pt-8 mt-8">
+          <footer className="border-t border-neutral-200 pt-8 mt-8">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
-              {/* Vote buttons */}
+              {/* Vote buttons - Antera Style */}
               <div className="flex items-center gap-2">
-                <div className="flex items-center border-4 border-black">
+                <div className="flex items-center border-2 border-neutral-200 bg-white">
                   <button
                     className={cn(
-                      "p-2 transition-all",
+                      "p-2 transition-colors",
                       hasVoted 
                         ? "opacity-40 cursor-not-allowed" 
-                        : "hover:bg-black hover:text-white"
+                        : "hover:bg-[#FA520F] hover:text-white"
                     )}
                     onClick={() => {
                       if (!hasVoted) {
@@ -205,17 +196,17 @@ export function PostDetail() {
                     }}
                     disabled={hasVoted}
                   >
-                    <ArrowBigUp className="h-5 w-5" />
+                    <ArrowBigUp className="h-4 w-4" />
                   </button>
                   <span className="px-3 text-sm font-mono font-bold text-black min-w-[32px] text-center">
                     {voteCount}
                   </span>
                   <button
                     className={cn(
-                      "p-2 transition-all",
+                      "p-2 transition-colors",
                       hasVoted 
                         ? "opacity-40 cursor-not-allowed" 
-                        : "hover:bg-black hover:text-white"
+                        : "hover:bg-[#FA520F] hover:text-white"
                     )}
                     onClick={() => {
                       if (!hasVoted) {
@@ -226,12 +217,12 @@ export function PostDetail() {
                     }}
                     disabled={hasVoted}
                   >
-                    <ArrowBigDown className="h-5 w-5" />
+                    <ArrowBigDown className="h-4 w-4" />
                   </button>
                 </div>
               </div>
 
-              {/* Share buttons */}
+              {/* Share buttons - Antera Style */}
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-mono font-bold uppercase text-neutral-700 flex items-center gap-1.5">
                   <Share2 className="h-3.5 w-3.5" />
@@ -239,16 +230,16 @@ export function PostDetail() {
                 </span>
                 <button 
                   onClick={() => share('twitter')}
-                  className="relative border-4 border-black bg-transparent px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white"
+                  className="bg-white hover:bg-black text-black hover:text-white px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors duration-200 border-2 border-neutral-300 hover:border-black"
                 >
                   <span className="flex items-center gap-1.5">
                     <Twitter className="h-3 w-3" />
-                    tweet
+                    X
                   </span>
                 </button>
                 <button 
                   onClick={() => share('linkedin')}
-                  className="relative border-4 border-black bg-transparent px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white"
+                  className="bg-white hover:bg-black text-black hover:text-white px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors duration-200 border-2 border-neutral-300 hover:border-black"
                 >
                   <span className="flex items-center gap-1.5">
                     <Linkedin className="h-3 w-3" />
@@ -257,7 +248,7 @@ export function PostDetail() {
                 </button>
                 <button 
                   onClick={() => share('whatsapp')}
-                  className="relative border-4 border-black bg-transparent px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-black shadow-[3px_3px_0px_0px_#000000] transition-all duration-75 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none hover:bg-black hover:text-white"
+                  className="bg-white hover:bg-black text-black hover:text-white px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors duration-200 border-2 border-neutral-300 hover:border-black"
                 >
                   <span className="flex items-center gap-1.5">
                     <MessageCircle className="h-3 w-3" />
@@ -273,7 +264,7 @@ export function PostDetail() {
       {/* Scroll to top button */}
       {showScrollTop && (
         <button
-          className="fixed bottom-6 right-6 border-4 border-black bg-white p-3 shadow-[4px_4px_0px_0px_#000000] transition-all duration-75 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none hover:bg-black hover:text-white z-50"
+          className="fixed bottom-6 right-6 bg-white hover:bg-black text-black hover:text-white p-3 border-2 border-neutral-300 hover:border-black transition-colors duration-200 z-50"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <ChevronUp className="h-4 w-4" />
