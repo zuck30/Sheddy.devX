@@ -1,8 +1,8 @@
 import { usePosts } from '@/hooks/usePosts'
 import { SearchBar } from '@/components/common/SearchBar'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'  // Removed useEffect
 import { ChevronLeft, ChevronRight, Filter, X } from 'lucide-react'
-import { supabase } from '@/lib/supabaseClient'
+// Removed: import { supabase } from '@/lib/supabaseClient'
 import { Link } from 'react-router-dom'
 
 export function BlogPage() {
@@ -58,7 +58,7 @@ export function BlogPage() {
 
         {/* Posts Grid - Antera Card Style */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {posts.map((post, i) => (
+          {posts.map((post) => (  // Removed ', i' here
             <div
               key={post.id}
               className="group bg-[#F5F5F5] hover:bg-[#EAEAEA] transition-colors cursor-pointer"
