@@ -1,4 +1,5 @@
-import { Github, Linkedin, Twitter, Mail, Phone, MessageCircle } from 'lucide-react'
+
+import { Mail, MessageCircle } from 'lucide-react'
 import hero9 from '@/assets/hero-4.jpg'
 
 // Social Icons
@@ -25,7 +26,8 @@ const LinkedinIcon = () => (
 )
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  // Remove currentYear since it's not being used
+  // const currentYear = new Date().getFullYear()
 
   return (
     <footer className="relative w-full bg-[#FAFAF8] text-black font-sans antialiased border-t border-neutral-200 overflow-hidden">
