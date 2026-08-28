@@ -1,9 +1,9 @@
 import { usePosts } from '@/hooks/usePosts'
 import { SearchBar } from '@/components/common/SearchBar'
-import { useState } from 'react'  // Removed useEffect
+import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Filter, X } from 'lucide-react'
-// Removed: import { supabase } from '@/lib/supabaseClient'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 export function BlogPage() {
   const [page, setPage] = useState(1)
@@ -56,17 +56,26 @@ export function BlogPage() {
           </div>
         </div>
 
-        {/* Posts Grid - Antera Card Style */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {posts.map((post) => (  // Removed ', i' here
-            <div
-              key={post.id}
-              className="group bg-[#F5F5F5] hover:bg-[#EAEAEA] transition-colors cursor-pointer"
-            >
-              <Link to={`/post/${post.slug}`} className="block p-8 md:p-10 min-h-[320px] flex flex-col justify-between">
-                <div>
+        {/* Posts Grid - Updated to TeamPage Design */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post, i) => {
+            const isPurple = i % 2 === 0;
+            return (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.7 }}
+                className={`group transition-all duration-300 hover:-translate-y-2 ${
+                  isPurple 
+                    ? 'bg-[#EFE8FF] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)]' 
+                    : 'bg-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)]'
+                }`}
+              >
+                <Link to={`/post/${post.slug}`} className="block p-6 md:p-8 min-h-[320px] flex flex-col">
                   {post.cover_image && (
-                    <div className="aspect-video relative border border-neutral-200 overflow-hidden mb-6 bg-neutral-100">
+                    <div className="aspect-video relative overflow-hidden mb-6 bg-gray-100">
                       <img 
                         src={post.cover_image} 
                         alt={post.title} 
@@ -74,29 +83,34 @@ export function BlogPage() {
                       />
                     </div>
                   )}
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-[10px] font-mono font-bold uppercase px-2 py-1 bg-[#FA520F] text-white">Read</span>
-                    <span className="text-[10px] font-mono text-neutral-700 uppercase">
+                  
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 bg-[#171321] text-white rounded-full">
+                      Read
+                    </span>
+                    <span className="text-xs text-[#171321]/60">
                       {new Date(post.created_at).toLocaleDateString()}
                     </span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-normal tracking-tight mb-3 group-hover:text-[#FA520F] transition-colors">
+                  
+                  <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#171321] mb-3 group-hover:text-[#171321]/70 transition-colors line-clamp-2">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-neutral-600 font-light leading-relaxed line-clamp-3">
+                  
+                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 flex-grow">
                     {post.excerpt?.replace(/^(?:TITLE|EXCERPT|CONTENT):\s*/gi, '').trim() ||
                      post.content?.replace(/<[^>]*>/g, '').substring(0, 160)}
                   </p>
-                </div>
 
-                <div className="mt-6 pt-4 border-t border-neutral-200/50">
-                  <span className="inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase text-neutral-700 group-hover:text-[#FA520F] transition-colors">
-                    Read More
-                  </span>
-                </div>
-              </Link>
-            </div>
-          ))}
+                  <div className="mt-6 pt-4 border-t border-[#171321]/10">
+                    <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#171321] group-hover:text-[#171321]/60 transition-colors">
+                      Read More
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         {posts.length === 0 && !loading && (

@@ -119,42 +119,54 @@ export function HomePage() {
       </section>
 
       {/* Recent Posts Section */}
-      <section className="px-6 md:px-12 py-24 md:py-32">
-        <div className="max-w-[1400px] mx-auto">
+      <section className="bg-white text-[#171321] font-sans w-full py-24 md:py-32">
+        <div className="w-full max-w-[1500px] mx-auto px-6 md:px-12 lg:px-20">
+          
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+          <motion.div 
+            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-[-0.03em] leading-[0.95]">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-[#171321]">
                 Latest Posts
               </h2>
-              <p className="text-[10px] font-mono uppercase text-neutral-700 mt-2">
+              <p className="text-sm text-gray-600 mt-2">
                 {posts.length} total
               </p>
             </div>
             <Link 
               to="/blog" 
-              className="group inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-700 hover:text-[#FA520F] transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#171321] hover:text-[#171321]/60 transition-colors group"
             >
-              view all
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+              View all
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </div>
+          </motion.div>
 
           {/* Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recentPosts.map((post, i) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.6 }}
-                className="group bg-[#F5F5F5] hover:bg-[#EAEAEA] transition-colors cursor-pointer"
-              >
-                <Link to={`/post/${post.slug}`} className="block p-8 md:p-10 min-h-[320px] flex flex-col justify-between">
-                  <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recentPosts.map((post, i) => {
+              const isPurple = i % 2 === 0;
+              return (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05, duration: 0.7 }}
+                  className={`group transition-all duration-300 hover:-translate-y-2 ${
+                    isPurple 
+                      ? 'bg-[#EFE8FF] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)]' 
+                      : 'bg-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)]'
+                  }`}
+                >
+                  <Link to={`/post/${post.slug}`} className="block p-6 md:p-8 min-h-[320px] flex flex-col">
                     {post.cover_image && (
-                      <div className="aspect-video relative border border-neutral-200 overflow-hidden mb-6 bg-neutral-100">
+                      <div className="aspect-video relative overflow-hidden mb-6 bg-gray-100">
                         <img 
                           src={post.cover_image} 
                           alt={post.title} 
@@ -162,37 +174,40 @@ export function HomePage() {
                         />
                       </div>
                     )}
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[10px] font-mono font-bold uppercase px-2 py-1 bg-[#FA520F] text-white">
+                    
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 bg-[#171321] text-white rounded-full">
                         Read
                       </span>
-                      <span className="text-[10px] font-mono text-neutral-700 uppercase">
+                      <span className="text-xs text-[#171321]/60">
                         {new Date(post.created_at).toLocaleDateString()}
                       </span>
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-normal tracking-tight mb-3 group-hover:text-[#FA520F] transition-colors">
+                    
+                    <h3 className="text-xl md:text-2xl font-bold tracking-tight text-[#171321] mb-3 group-hover:text-[#171321]/70 transition-colors line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-neutral-600 font-light leading-relaxed line-clamp-3">
+                    
+                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 flex-grow">
                       {post.excerpt?.replace(/^(?:TITLE|EXCERPT|CONTENT):\s*/gi, '').trim() ||
                        post.content?.replace(/<[^>]*>/g, '').substring(0, 160)}
                     </p>
-                  </div>
 
-                  <div className="mt-6 pt-4 border-t border-neutral-200/50">
-                    <span className="inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase text-neutral-700 group-hover:text-[#FA520F] transition-colors">
-                      Read More
-                      <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                    <div className="mt-6 pt-4 border-t border-[#171321]/10">
+                      <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#171321] group-hover:text-[#171321]/60 transition-colors">
+                        Read More
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
 
           {recentPosts.length === 0 && !loading && (
-            <div className="text-center py-20 border border-dashed border-neutral-200">
-              <p className="font-mono text-neutral-700">No posts found.</p>
+            <div className="text-center py-20">
+              <p className="text-gray-600">No posts found.</p>
             </div>
           )}
         </div>
