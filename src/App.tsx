@@ -3,7 +3,7 @@ import { Layout } from '@/components/layout/Layout'
 import { HomePage } from '@/pages/HomePage'
 import { BlogPage } from '@/pages/BlogPage'
 import { PostPage } from '@/pages/PostPage'
-import { ResumePage } from '@/pages/ResumePage'
+import ResumePage from '@/pages/ResumePage' 
 import { AdminPage } from '@/pages/AdminPage'
 import { Toaster } from 'sonner'
 
