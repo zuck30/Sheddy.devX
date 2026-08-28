@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Download, ExternalLink, Mail, MapPin, Calendar, Briefcase, GraduationCap, Code, Users, Workflow, Github, Globe, ArrowUpRight } from 'lucide-react';
 
